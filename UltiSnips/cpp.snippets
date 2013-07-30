@@ -307,3 +307,30 @@ BOOST_FOREACH(${1}, ${2}) {
 	${3}
 }${4}
 endsnippet
+
+### will these overwrite the original?
+snippet cl "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`} {
+public:
+	${1/(\w+).*/$1/} (${2:});
+	virtual ~${1/(\w+).*/$1/} ();
+
+private:
+	${0:/* data */}
+};
+endsnippet
+
+snippet main "main() (main)"
+int main(int argc, char *argv[]) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	return 0;
+}
+endsnippet
+
+snippet for "for loop (for)"
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+
