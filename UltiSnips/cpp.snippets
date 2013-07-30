@@ -8,8 +8,7 @@ ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:
 endsnippet
 
 snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`}
-{
+class ${1:`!p snip.rv = snip.basename or "name"`} {
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
 	virtual ~${1/(\w+).*/$1/} ();
@@ -28,8 +27,7 @@ endsnippet
 
 snippet readfile "read file (readF)"
 std::vector<char> v;
-if (FILE *fp = fopen(${1:"filename"}, "r"))
-{
+if (FILE *fp = fopen(${1:"filename"}, "r")) {
 	char buf[1024];
 	while(size_t len = fread(buf, 1, sizeof(buf), fp))
 		v.insert(v.end(), buf, buf + len);
@@ -171,7 +169,7 @@ public:
 	$1(${2:});
 	virtual ~$1();
 private:
-	$1 (const $1& other);
+	$1(const $1& other);
 	$1& operator=(const $1& other);
 	${3}
 };${4}
@@ -360,31 +358,28 @@ BOOST_FOREACH(${1}, ${2}) {
 }${4}
 endsnippet
 
-### will these overwrite the original?
-snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`} {
-public:
-	${1/(\w+).*/$1/} (${2:});
-	virtual ~${1/(\w+).*/$1/} ();
-
-private:
-	${0:/* data */}
-};
+## ros
+snippet pxyz "pcl::PointXYZ"
+pcl::PointXYZ ${1}
 endsnippet
 
-snippet main "main() (main)"
-int main(int argc, char *argv[]) {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
-	return 0;
-}
+snippet prgb "pcl::PointXYZRGB"
+pcl::PointXYZRGB ${2}
 endsnippet
 
-snippet for "for loop (for)"
-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
-}
+snippet rosnh "ros node handle"
+ros::NodeHandle ${3:nh_}
 endsnippet
 
+snippet roserr "ros error"
+ROS_ERROR(${1});$0
+endsnippet
 
+snippet roserr "ros info"
+ROS_INFO(${1});$0
+endsnippet
 
+snippet rosgetparam "ros get param"
+if (!nh_.getParam("${1:param", ${1})) { ROS_ERROR("No ${1} param"); }$0
+endsnippet
 # vim:ft=snippets:
