@@ -1,64 +1,4 @@
-
-
-###########################################################################
-#                              General Stuff                              #
-###########################################################################
-snippet part "Part" b
-`!p snip.rv = len(t[1])*'#'`
-${1:Part name}
-`!p snip.rv = len(t[1])*'#'`
-
-$0
-endsnippet
-
-snippet sec "Section" b
-${1:Section name}
-`!p snip.rv = len(t[1])*'='`
-
-$0
-endsnippet
-
-snippet ssec "Subsection" b
-${1:Section name}
-`!p snip.rv = len(t[1])*'-'`
-
-$0
-endsnippet
-
-snippet sssec "Subsubsection" b
-${1:Section name}
-`!p snip.rv = len(t[1])*'^'`
-
-$0
-endsnippet
-
-snippet chap "Chapter" b
-`!p snip.rv = len(t[1])*'*'`
-${1:Chapter name}
-`!p snip.rv = len(t[1])*'*'`
-
-$0
-endsnippet
-
-snippet para "Paragraph" b
-${1:Paragraph name}
-`!p snip.rv = len(t[1])*'"'`
-
-$0
-endsnippet
-
-###########################################################################
-#                         More Specialized Stuff.                         #
-###########################################################################
-snippet cb "Code Block" b
-.. code-block:: ${1:lua}
-
-   ${2:code}
-
-$0
-endsnippet
-
-### from snipmate
+# rst
 snippet : ":"
 :${1:field name}: ${2:field body}
 endsnippet
@@ -166,4 +106,3 @@ snippet **c "**c"
 endsnippet
 
 
-# vim:ft=snippets:
