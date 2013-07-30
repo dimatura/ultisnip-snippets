@@ -1,0 +1,300 @@
+#snippet #! "#!"
+##!/usr/bin/env python
+#endsnippet
+
+snippet imp "imp"
+import ${1:module}
+endsnippet
+
+snippet uni "uni"
+def __unicode__(self):
+	${1:representation}
+endsnippet
+
+#snippet from "from"
+#from ${1:package} import ${2:module}
+#endsnippet
+
+# Module Docstring
+snippet docs "docs"
+"""
+File: ${1:`!v vim_snippets#Filename('$1.py', 'foo.py')`}
+Author: `!v g:snips_author`
+Email: `!v g:snips_email`
+Github: `!v g:snips_github`
+Description: ${2}
+"""
+endsnippet
+
+snippet wh "wh"
+while ${1:condition}:
+	${2}
+endsnippet
+
+# dowh - does the same as do...while in other languages
+snippet dowh "dowh"
+while True:
+	${1}
+	if ${2:condition}:
+		break
+endsnippet
+
+snippet with "with"
+with ${1:expr} as ${2:var}:
+	${3}
+endsnippet
+
+# New Class
+snippet cl "cl"
+class ${1:ClassName}(${2:object}):
+	"""${3:docstring for $1}"""
+	def __init__(self, ${4:arg}):
+		${5:super($1, self).__init__()}
+		self.$4 = $4
+		${6}
+endsnippet
+
+# New Function
+#snippet def "def"
+#def ${1:fname}(${2:`!v indent('.') ? 'self' : ''`}):
+#	"""${3:docstring for $1}"""
+#	${4}
+#endsnippet
+
+snippet deff "deff"
+def ${1:fname}(${2:`!v indent('.') ? 'self' : ''`}):
+	${3}
+endsnippet
+
+# New Method
+snippet defs "defs"
+def ${1:mname}(self, ${2:arg}):
+	${3}
+endsnippet
+
+# New Property
+snippet property "property"
+def ${1:foo}():
+	doc = "${2:The $1 property.}"
+	def fget(self):
+		${3:return self._$1}
+	def fset(self, value):
+		${4:self._$1 = value}
+	def fdel(self):
+		${5:del self._$1}
+	return locals()
+$1 = property(**$1())
+endsnippet
+
+# Ifs
+#snippet if "if"
+#if ${1:condition}:
+#	${2}
+#endsnippet
+
+snippet el "el"
+else:
+	${1}
+endsnippet
+
+snippet ei "ei"
+elif ${1:condition}:
+	${2}
+endsnippet
+
+# For
+snippet for "for"
+for ${1:item} in ${2:items}:
+	${3}
+endsnippet
+
+# Encodes
+snippet cutf8 "cutf8"
+# -*- coding: utf-8 -*-
+endsnippet
+
+snippet clatin1 "clatin1"
+# -*- coding: latin-1 -*-
+endsnippet
+
+snippet cascii "cascii"
+# -*- coding: ascii -*-
+endsnippet
+
+# Lambda
+snippet ld "ld"
+${1:var} = lambda ${2:vars} : ${3:action}
+endsnippet
+
+#snippet . "."
+#self.
+#endsnippet
+
+#snippet try "Try/Except"
+#try:
+#	${1}
+#except ${2:Exception}, ${3:e}:
+#	${4:raise $3}
+#endsnippet
+#
+#snippet try "Try/Except/Else"
+#try:
+#	${1}
+#except ${2:Exception}, ${3:e}:
+#	${4:raise $3}
+#else:
+#	${5}
+#endsnippet
+#
+#snippet try "Try/Except/Finally"
+#try:
+#	${1}
+#except ${2:Exception}, ${3:e}:
+#	${4:raise $3}
+#finally:
+#	${5}
+#endsnippet
+#
+#snippet try "Try/Except/Else/Finally"
+#try:
+#	${1}
+#except ${2:Exception}, ${3:e}:
+#	${4:raise $3}
+#else:
+#	${5}
+#finally:
+#	${6}
+#endsnippet
+
+# if __name__ == '__main__':
+#snippet ifmain "ifmain"
+#if __name__ == '__main__':
+#	${1:main()}
+#endsnippet
+
+# __magic__
+#snippet _ "_"
+#__${1:init}__${2}
+#endsnippet
+
+# python debugger (pdb)
+snippet pdb "pdb"
+import pdb; pdb.set_trace()
+endsnippet
+
+# ipython debugger (ipdb)
+snippet ipdb "ipdb"
+import ipdb; ipdb.set_trace()
+endsnippet
+
+# ipython debugger (pdbbb)
+snippet pdbbb "pdbbb"
+import pdbpp; pdbpp.set_trace()
+endsnippet
+
+# python console debugger (pudb)
+snippet pudb "pudb"
+import pudb; pudb.set_trace()
+endsnippet
+
+snippet pprint "pprint"
+import pprint; pprint.pprint(${1})${2}
+endsnippet
+
+#snippet " """
+#"""
+#${1:doc}
+#"""
+#endsnippet
+
+# test function/method
+snippet test "test"
+def test_${1:description}(${2:`!v indent('.') ? 'self' : ''`}):
+	${3}
+endsnippet
+
+# test case
+snippet testcase "testcase"
+class ${1:ExampleCase}(unittest.TestCase):
+	def test_${2:description}(self):
+		${3}
+endsnippet
+
+snippet fut "fut"
+from __future__ import ${1}
+endsnippet
+
+#getopt
+snippet getopt "getopt"
+try:
+	# Short option syntax: "hv:"
+	# Long option syntax: "help" or "verbose="
+	opts, args = getopt.getopt(sys.argv[1:], "${1:short_options}", [${2:long_options}])
+except getopt.GetoptError, err:
+	# Print debug info
+	print str(err)
+	${3:error_action}
+for option, argument in opts:
+	if option in ("-h", "--help"):
+		${4}
+	elif option in ("-v", "--verbose"):
+		verbose = argument
+endsnippet
+
+snippet pr "pr"
+print ${1}
+endsnippet
+
+snippet ret "ret"
+return
+endsnippet
+
+snippet opj "opj"
+os.path.join(
+endsnippet
+
+snippet ope "ope"
+os.path.exists(
+endsnippet
+
+snippet opse "opse"
+os.path.splitext(
+endsnippet
+
+snippet op "op"
+os.path.
+endsnippet
+
+snippet dbg "dbg"
+print "${1:} = ", ${2:$1}${3}
+endsnippet
+
+# logging
+# glog = get log
+snippet glog "glog"
+import logging
+logger = logging.getLogger(${1:__name__})
+endsnippet
+
+snippet le "le"
+logger.error(${1:msg})
+endsnippet
+
+# conflict with lambda=ld, therefor we change into Logger.debuG
+snippet lg "lg"
+logger.debug(${1:msg})
+endsnippet
+
+snippet lw "lw"
+logger.warning(${1:msg})
+endsnippet
+
+snippet lc "lc"
+logger.critical(${1:msg})
+endsnippet
+
+snippet li "li"
+logger.info(${1:msg})
+endsnippet
+
+

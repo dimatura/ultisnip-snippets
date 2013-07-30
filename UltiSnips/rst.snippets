@@ -1,0 +1,108 @@
+# rst
+snippet : ":"
+:${1:field name}: ${2:field body}
+endsnippet
+
+snippet * "*"
+*${1:Emphasis}* ${2}
+endsnippet
+
+snippet ** "**"
+**${1:Strong emphasis}** ${2}
+endsnippet
+
+snippet _ "_"
+\`!v ${1:hyperlink-name}\`_
+.. _\`!v $1\`: ${2:link-block}
+endsnippet
+
+snippet = "="
+${1:Title}
+=====${2:=}
+${3}
+endsnippet
+
+snippet - "-"
+${1:Title}
+-----${2:-}
+${3}
+endsnippet
+
+#some directive
+snippet img: "img:"
+.. |${2:alias}| image:: ${1:img}
+endsnippet
+
+snippet fig: "fig:"
+.. figure:: ${1:img}
+	:alt: ${2:alter text}
+	$2
+endsnippet
+
+snippet cont: "cont:"
+.. contents::
+	${1:content}
+endsnippet
+
+snippet code: "code:"
+.. code:: ${1:type}
+	${2:write some code}
+endsnippet
+
+snippet tip: "tip:"
+.. tip::
+	${1:my tips}
+endsnippet
+
+snippet not: "not:"
+.. note::
+	${1:my notes}
+endsnippet
+
+.. note::
+	${1:my notes}
+.. warning::
+	${1:attention!}
+endsnippet
+
+snippet imp: "imp:"
+.. important::
+	${1:this is importatnt}
+endsnippet
+
+snippet att: "att:"
+.. attention::
+	${1:hey!}
+endsnippet
+
+snippet dan: "dan:"
+.. danger::
+	${1:ah!}
+endsnippet
+
+snippet err: "err:"
+.. error::
+	${1:Error occur}
+endsnippet
+
+snippet cau: "cau:"
+.. caution::
+	${1:Watch out!}
+endsnippet
+
+#Spinx only
+snippet sid: "sid:"
+.. sidebar:: ${1:Title}
+	${2}
+endsnippet
+
+# CJK optimize, CJK has no space between charaters
+snippet *c "*c"
+\ *${1:Emphasis}*\ ${2}
+endsnippet
+
+snippet **c "**c"
+\ **${1:Strong emphasis}**\ ${2}
+endsnippet
+
+

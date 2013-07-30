@@ -1,0 +1,445 @@
+#PREAMBLE
+#newcommand
+snippet nc "nc"
+\newcommand{\${1:cmd}}[${2:opt}]{${3:realcmd}} ${4}
+endsnippet
+
+#usepackage
+snippet up "up"
+\usepackage[${1:options}]{${2:package}} ${3}
+endsnippet
+
+#newunicodechar
+snippet nuc "nuc"
+\newunicodechar{${1}}{${2:\ensuremath}${3:tex-substitute}}} ${4}
+endsnippet
+
+#DeclareMathOperator
+snippet dmo "dmo"
+\DeclareMathOperator{${1}}{${2}} ${3}
+endsnippet
+
+#DOCUMENT
+# \begin{}...\end{}
+snippet begin "begin"
+\begin{${1:env}}
+	${2}
+\end{$1}
+endsnippet
+
+# Tabular
+snippet tab "tab"
+\begin{${1:tabular}}{${2:c}}
+${3}
+\end{$1}
+endsnippet
+
+snippet thm "thm"
+\begin[${1:author}]{${2:thm}}
+${3}
+\end{$2}
+endsnippet
+
+snippet center "center"
+\begin{center}
+	${1}
+\end{center}
+endsnippet
+
+# Align(ed)
+snippet ali "ali"
+\begin{align${1:ed}}
+	${2}
+\end{align$1}
+endsnippet
+
+# Gather(ed)
+snippet gat "gat"
+\begin{gather${1:ed}}
+	${2}
+\end{gather$1}
+endsnippet
+
+# Equation
+snippet eq "eq"
+\begin{equation}
+	${1}
+\end{equation}
+endsnippet
+
+# Equation
+snippet eq* "eq*"
+\begin{equation*}
+	${1}
+\end{equation*}
+endsnippet
+
+# Unnumbered Equation
+snippet \ "\"
+\[
+	${1}
+\]
+endsnippet
+
+# Equation array
+snippet eqnarray "eqnarray"
+\begin{eqnarray}
+	${1}
+\end{eqnarray}
+endsnippet
+
+# Enumerate
+snippet enum "enum"
+\begin{enumerate}
+	\item ${1}
+\end{enumerate}
+endsnippet
+
+# Itemize
+snippet itemize "itemize"
+\begin{itemize}
+	\item ${1}
+\end{itemize}
+endsnippet
+
+snippet item "item"
+\item ${1}
+endsnippet
+
+# Description
+snippet desc "desc"
+\begin{description}
+	\item[${1}] ${2}
+\end{description}
+endsnippet
+
+# Endless new item
+snippet ]i "]i"
+\item ${1}
+${2:]i}
+endsnippet
+
+# Matrix
+snippet mat "mat"
+\begin{${1:p/b/v/V/B/small}matrix}
+	${2}
+\end{$1matrix}
+endsnippet
+
+# Cases
+snippet cas "cas"
+\begin{cases}
+	${1:equation}, &\text{ if }${2:case}\\
+	${3}
+\end{cases}
+endsnippet
+
+# Split
+snippet spl "spl"
+\begin{split}
+	${1}
+\end{split}
+endsnippet
+
+# Part
+snippet part "part"
+\part{${1:part name}} % (fold)
+\label{prt:${2:$1}}
+${3}
+% part $2 (end)
+endsnippet
+
+# Chapter
+snippet cha "cha"
+\chapter{${1:chapter name}}
+\label{cha:${2:$1}}
+${3}
+endsnippet
+
+# Section
+snippet sec "sec"
+\section{${1:section name}}
+\label{sec:${2:$1}}
+${3}
+endsnippet
+
+# Section without number
+snippet sec* "sec*"
+\section*{${1:section name}}
+\label{sec:${2:$1}}
+${3}
+endsnippet
+
+# Sub Section
+snippet sub "sub"
+\subsection{${1:subsection name}}
+\label{sub:${2:$1}}
+${3}
+endsnippet
+
+# Sub Section without number
+snippet sub* "sub*"
+\subsection*{${1:subsection name}}
+\label{sub:${2:$1}}
+${3}
+endsnippet
+
+# Sub Sub Section
+snippet subs "subs"
+\subsubsection{${1:subsubsection name}}
+\label{ssub:${2:$1}}
+${3}
+endsnippet
+
+# Sub Sub Section without number
+snippet subs* "subs*"
+\subsubsection*{${1:subsubsection name}}
+\label{ssub:${2:$1}}
+${3}
+endsnippet
+
+# Paragraph
+snippet par "par"
+\paragraph{${1:paragraph name}}
+\label{par:${2:$1}}
+${3}
+endsnippet
+
+# Sub Paragraph
+snippet subp "subp"
+\subparagraph{${1:subparagraph name}}
+\label{subp:${2:$1}}
+${3}
+endsnippet
+
+snippet ni "ni"
+\noindent
+${1}
+endsnippet
+
+#References
+snippet itd "itd"
+\item[${1:description}] ${2:item}
+endsnippet
+
+snippet figure "figure"
+${1:Figure}~\ref{${2:fig:}}${3}
+endsnippet
+
+snippet table "table"
+${1:Table}~\ref{${2:tab:}}${3}
+endsnippet
+
+snippet listing "listing"
+${1:Listing}~\ref{${2:list}}${3}
+endsnippet
+
+snippet section "section"
+${1:Section}~\ref{sec:${2}} ${3}
+endsnippet
+
+snippet page "page"
+${1:page}~\pageref{${2}} ${3}
+endsnippet
+
+snippet index "index"
+\index{${1:index}} ${2}
+endsnippet
+
+#Citations
+snippet citen "citen"
+\cite{$1} ${2}
+endsnippet
+
+# bibtex commands
+snippet citep "citep"
+\citep{$1} ${2}
+endsnippet
+
+snippet citet "citet"
+\citet{$1} ${2}
+endsnippet
+
+snippet cite "cite"
+\cite[${1}]{${2}} ${3}
+endsnippet
+
+snippet fcite "fcite"
+\footcite[${1}]{${2}}${3}
+endsnippet
+
+#Formating text: italic, bold, underline, small capital, emphase ..
+snippet it "it"
+\textit{${1:text}}
+endsnippet
+
+snippet bf "bf"
+\textbf{${1:text}}
+endsnippet
+
+snippet under "under"
+\underline{${1:text}}
+endsnippet
+
+snippet emp "emp"
+\emph{${1:text}}
+endsnippet
+
+snippet sc "sc"
+\textsc{${1:text}}
+endsnippet
+
+#Choosing font
+snippet sf "sf"
+\textsf{${1:text}}
+endsnippet
+
+snippet rm "rm"
+\textrm{${1:text}}
+endsnippet
+
+snippet tt "tt"
+\texttt{${1:text}}
+endsnippet
+
+#misc
+snippet ft "ft"
+\footnote{${1:text}}
+endsnippet
+
+snippet fig "fig"
+\begin{figure}
+\begin{center}
+    \includegraphics[scale=${1}]{Figures/${2}}
+\end{center}
+\caption{${3}}
+\label{fig:${4}}
+\end{figure}
+${5}
+endsnippet
+
+snippet tikz "tikz"
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=${1:1}]
+	${2}
+\end{tikzpicture}
+\end{center}
+\caption{${3}}
+\label{fig:${4}}
+\end{figure}
+${5}
+endsnippet
+
+#math
+snippet stackrel "stackrel"
+\stackrel{${1:above}}{${2:below}} ${3}
+endsnippet
+
+snippet frac "frac"
+\frac{${1:num}}{${2:denom}} ${3}
+endsnippet
+
+snippet sum "sum"
+\sum^{${1:n}}_{${2:i=1}}{${3}}
+endsnippet
+
+snippet graphics "graphics"
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{${1}}
+    \caption{${2}}
+    \label{fig:${3}}
+\end{figure}
+endsnippet
+
+snippet frac "frac"
+\frac{${1}}{${2}}${3}
+endsnippet
+
+snippet frame "frame"
+\begin{frame}
+    \frametitle{${1}}${2}
+\end{frame}
+endsnippet
+
+snippet columns "columns"
+\begin{columns}
+    \begin{column}[l]{0.5\textwidth}
+    ${1}
+    \end{column}
+    \begin{column}[l]{0.5\textwidth}
+    \end{column}
+\end{columns}
+endsnippet
+
+snippet tabular "tabular"
+\begin{tabular}{p{.30\linewidth} p{.20\linewidth} p{.20\linewidth} }
+    \toprule
+    \addlinespace
+    Conjunto               & Sujetos   & Imagenes \\
+    \cmidrule(l){1-1} \cmidrule(lr){2-2} \cmidrule(l){3-3}
+    \addlinespace
+    Training               & 429       & 762      \\
+    \addlinespace
+    Galeria fa             & 1196      & 1196     \\
+    \addlinespace
+    Probe fb               & 1195      & 1195     \\
+    Probe fc               & 194       & 194      \\
+    Probe dup1             & 722       & 243      \\
+    Probe dup2             & 234       & 75       \\
+    \bottomrule
+\end{tabular}
+endsnippet
+
+snippet lim "lim"
+\lim_{${1:x \to +\infty}} ${2}
+endsnippet
+
+snippet frame "frame"
+\begin{frame}[<+->]
+	\frametitle{${1:title}}
+	${2}
+\end{frame}
+endsnippet
+
+snippet block "block"
+\begin{block}{${1:title}}
+${2}
+\end{block}
+endsnippet
+
+snippet alert "alert"
+\begin{alertblock}{${1:title}}
+${2}
+\end{alertblock}
+endsnippet
+
+snippet example "example"
+\begin{exampleblock}{${1:title}}
+${2}
+\end{exampleblock}
+endsnippet
+
+snippet col2 "col2"
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		${1}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		${2}
+	\end{column}
+\end{columns}
+endsnippet
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		${1}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		${2}
+	\end{column}
+\end{columns}
+endsnippet
+
+

@@ -1,0 +1,121 @@
+# Based on http://pts.szit.bme.hu/bibtex-cheat-sheet.txt
+# Most optional fields are not included.
+snippet article "article"
+@Article{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	journal = {${4:journal}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet book "book"
+@Book{ ${1:id},
+	${2:author/editor} = {${3:$2s separated by "and"}},
+	title = {${4:title}},
+	publisher = {${5:publisher}},
+	year = ${6:year},
+}
+endsnippet
+
+snippet booklet "booklet"
+@Booklet{ ${1:id},
+	title = {${2:title}},
+	author = {${3:authors separated by "and"}},
+}
+endsnippet
+
+snippet conference "conference"
+@Conference{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	booktitle = {${4:book title}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet inbook "inbook"
+@InBook{ ${1:id},
+	${2:author/editor} = {${3:$2s separated by "and"}},
+	title = {${4:title}},
+	${5:chapter/pages} = {${6:$5}},
+	publisher = {${7:publisher}},
+	year = ${8:year},
+}
+endsnippet
+
+snippet incollection "incollection"
+@InCollection{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	booktitle = {${4:book title}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet inproceedings "inproceedings"
+@InProceedings{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	booktitle = {${4:book title}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet manual "manual"
+@Manual{ ${1:id},
+	title = {${2:title}},
+	author = {${3:authors separated by "and"}},
+}
+endsnippet
+
+snippet masters "masters"
+@MastersThesis{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	school = {${4:school}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet misc "misc"
+@Misc{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+}
+endsnippet
+
+snippet phd "phd"
+@PhDThesis{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	school = {${4:school}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet proceedings "proceedings"
+@Proceedings{ ${1:id},
+	title = {${2:title}},
+	year = {${3:year}},
+}
+endsnippet
+
+snippet techreport "techreport"
+@TechReport{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	institution = {${4:institution}},
+	year = ${5:year},
+}
+endsnippet
+
+snippet unpublished "unpublished"
+@Unpublished{ ${1:id},
+	author = {${2:authors separated by "and"}},
+	title = {${3:title}},
+	note = {${4:note}},
+}
+endsnippet
+
+
