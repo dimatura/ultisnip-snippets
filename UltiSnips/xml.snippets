@@ -18,3 +18,28 @@ snippet remap "roslaunch remap" b
 <remap from="${1}" to="${2}"/>
 endsnippet
 
+snippet rosparam "roslaunch rosparam" b
+<rosparam>
+    ${1:param_name}: ${2:param_value}
+</rosparam>
+endsnippet
+
+snippet param "roslaunch param" b
+<param name="${1:name}" value="${2:value}" type="${3:str|int|double|bool}"/>
+endsnippet
+
+snippet arg "roslaunch arg" b
+<arg name="${1:name}" default="${2:default}" />
+endsnippet
+
+snippet node "roslaunch node" b
+<node pkg="${1}" type="${2}" name="${3}" args="${4}" respawn="false" output="screen"/>
+endsnippet
+
+snippet group "roslaunch group" b
+<group if="${1:$(arg foo)}">
+    ${2}
+</group>${3}
+endsnippet
+
+
