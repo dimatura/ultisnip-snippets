@@ -3,20 +3,22 @@ extends c
 ###########################################################################
 #                            TextMate Snippets                            #
 ###########################################################################
+
 snippet beginend "$1.begin(), $1.end() (beginend)"
 ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
 endsnippet
 
-snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`} {
-public:
-	${1/(\w+).*/$1/} (${2:arguments});
-	virtual ~${1/(\w+).*/$1/} ();
 
-private:
-	${0:/* data */}
-};
-endsnippet
+#snippet cl "class .. (class)"
+#class ${1:`!p snip.rv = snip.basename or "name"`} {
+#public:
+#	${1/(\w+).*/$1/} (${2:arguments});
+#	virtual ~${1/(\w+).*/$1/} ();
+#
+#private:
+#	${0:/* data */}
+#};
+#endsnippet
 
 snippet ns "namespace .. (namespace)"
 namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
@@ -279,6 +281,10 @@ snippet eiv "eiv"
 Eigen::Vector
 endsnippet
 
+snippet eiq "eiv"
+Eigen::Quaternion
+endsnippet
+
 snippet std "std"
 std::
 endsnippet
@@ -310,6 +316,10 @@ endsnippet
 
 snippet pcl "pcl"
 pcl::
+endsnippet
+
+snippet tf "tf"
+tf::
 endsnippet
 
 snippet pclc "pclc"
@@ -372,11 +382,27 @@ ros::NodeHandle ${3:nh_}
 endsnippet
 
 snippet roserr "ros error"
-ROS_ERROR(${1});$0
+ROS_ERROR_STREAM(${1});$0
 endsnippet
 
-snippet roserr "ros info"
-ROS_INFO(${1});$0
+snippet rosinfo "ros info"
+ROS_INFO_STREAM(${1});$0
+endsnippet
+
+snippet rosdbg "ros debug"
+ROS_DEBUG_STREAM(${1});$0
+endsnippet
+
+snippet rosinfovar "ros info var"
+ROS_INFO_STREAM("${1:} = " << ${2:$1});$0
+endsnippet 
+
+snippet rosdbgvar "ros debug"
+ROS_DEBUG_STREAM("${1:} = " << ${2:$1});$0
+endsnippet
+
+snippet rosass "ros assert"
+ROS_ASSERT(${1:});$0
 endsnippet
 
 snippet rosgetparam "ros get param"
