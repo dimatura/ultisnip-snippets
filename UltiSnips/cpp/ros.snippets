@@ -1,3 +1,46 @@
+
+snippet include_ros "ros headers"
+#include <ros/ros.h>
+#include <ros/console.h>
+#include <ros/time.h>
+#include <tf/tf.h>
+endsnippet
+
+snippet include_pcl "pcl headers"
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/common/common.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/pcl_base.h>
+#include <pcl/features/normal_3d.h>
+#include <sensor_msgs/PointCloud2.h>
+endsnippet
+
+snippet ros "ros"
+ros::
+endsnippet
+
+snippet tsnow "time stamp now"
+ros::Time::now()
+endsnippet
+
+snippet rosloop "manual ros event loop"
+ros::Rate rate(100);
+while (ros::ok()) {
+    $1
+    rate.sleep();
+    ros::spinOnce();
+}
+endsnippet
+
+snippet rospub
+ros::Publisher $1 = nh.advertise<$2>("${3:topic}", 10);
+endsnippet
+
+snippet rossub
+ros::Subscriber $1 = nh.subscribe("${2:topic}", ${3:queue_size}, ${4:callback}, this); 
+endsnippet
+
 snippet pxyz "pcl::PointXYZ"
 pcl::PointXYZ ${1}
 endsnippet

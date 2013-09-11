@@ -9,12 +9,24 @@ endsnippet
 
 # boost format
 snippet bformat "bformat"
-boost::format("${1:}%1%${2:}")%${3:};${4:}
+(boost::format("$1")%$2)$0
 endsnippet
 
 # boost foreach
 snippet bfor "bfor"
 BOOST_FOREACH(${1}, ${2}) {
 	${3}
-}${4}
+}$0
+endsnippet
+
+snippet lcast "lexical cast"
+boost::lexical_cast<$1>($2)$0
+endsnippet
+
+snippet shared "shared ptr"
+boost::shared_ptr<$1>
+endsnippet
+
+snippet sharednew "shared new"
+boost::shared_ptr<$1>(new $1);
 endsnippet

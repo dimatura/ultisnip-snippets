@@ -50,15 +50,14 @@ template <typename ${1:_InputIter}>
 endsnippet
 
 #### DMS
-## STL Collections
-# std::array
+
 snippet array "array"
-std::array<${1:T}, ${2:N}> ${3};${4}
+boost::array<${1:T}, ${2:N}> ${3};$0
 endsnippet
 
 # std::vector
 snippet vec "vec"
-std::vector<${1}>
+std::vector<$1>$0
 endsnippet
 
 #snippet vector "vector"
@@ -102,22 +101,22 @@ endsnippet
 
 # std::unordered_set
 snippet uset "uset"
-std::unordered_set<${1:T}> ${2};${3}
+boost::unordered_set<${1:T}> ${2};${3}
 endsnippet
 
 # std::unordered_map
 snippet umap "umap"
-std::unordered_map<${1:Key}, ${2:T}> ${3};${4}
+boost::unordered_map<${1:Key}, ${2:T}> ${3};${4}
 endsnippet
 
 # std::unordered_multiset
 snippet umset "umset"
-std::unordered_multiset<${1:T}> ${2};${3}
+boost::unordered_multiset<${1:T}> ${2};${3}
 endsnippet
 
 # std::unordered_multimap
 snippet ummap "ummap"
-std::unordered_multimap<${1:Key}, ${2:T}> ${3};${4}
+boost::unordered_multimap<${1:Key}, ${2:T}> ${3};${4}
 endsnippet
 
 # std::stack
@@ -166,15 +165,15 @@ endsnippet
 ## Class
 # class
 snippet cl "cl"
-class ${1:} {
+class $1 {
 public:
-	$1(${2:});
+	$1($2);
 	virtual ~$1();
 private:
 	$1(const $1& other);
 	$1& operator=(const $1& other);
-	${3}
-};${4}
+	$3
+};$0
 endsnippet
 
 # member function implementation
@@ -284,7 +283,7 @@ snippet cr "cr"
 endsnippet
 
 snippet using "using"
-using namespace ${1}
+using namespace ${1:boost}
 endsnippet
 
 snippet scast "scast"
@@ -296,7 +295,7 @@ iterator
 endsnippet
 
 snippet opio "opio"
-std::ostream& operator<<(std::ostream& os, const ${1})${2}
+std::ostream& operator<<(std::ostream& os, const $1)$0
 endsnippet
 
 #snippet enum "enum"
@@ -306,7 +305,7 @@ endsnippet
 #endsnippet
 
 snippet ositer "ositer"
-std::copy(${1:}.begin(), ${2:}.end(), std::ostream_iterator<${3}>(${4:std::cout}, ${5:" "});${6:}
+std::copy($1.begin(), $2.end(), std::ostream_iterator<$3>(${4:std::cout}, ${5:" "}));$0
 endsnippet
 
 # vim:ft=snippets:
