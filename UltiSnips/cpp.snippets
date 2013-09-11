@@ -259,43 +259,8 @@ snippet lld "lld"
 }${4}
 endsnippet
 
-# opencv
-snippet cvm "cvm"
-cv::Mat
-endsnippet
-
-snippet cvm_ "cvm_"
-cv::Mat_<${1}> ${2}
-endsnippet
-
-# eigen
-snippet eim "eim"
-Eigen::Matrix
-endsnippet
-
-snippet eim_ "eim_"
-Eigen::Matrix<${1:type}, ${2:rows}, ${3:cols}> ${4}
-endsnippet
-
-snippet eiv "eiv"
-Eigen::Vector
-endsnippet
-
-snippet eiq "eiv"
-Eigen::Quaternion
-endsnippet
-
 snippet std "std"
 std::
-endsnippet
-
-# boost
-snippet b "b"
-boost::
-endsnippet
-
-snippet boost "boost"
-boost::
 endsnippet
 
 snippet bg "bg"
@@ -314,18 +279,6 @@ snippet . "."
 ::
 endsnippet
 
-snippet pcl "pcl"
-pcl::
-endsnippet
-
-snippet tf "tf"
-tf::
-endsnippet
-
-snippet pclc "pclc"
-pcl::console::print_
-endsnippet
-
 snippet cr "cr"
 "\n"
 endsnippet
@@ -335,7 +288,7 @@ using namespace ${1}
 endsnippet
 
 snippet scast "scast"
-static_cast<${1}>()
+static_cast<${1}>(${2})${3}
 endsnippet
 
 snippet it "it"
@@ -354,59 +307,6 @@ endsnippet
 
 snippet ositer "ositer"
 std::copy(${1:}.begin(), ${2:}.end(), std::ostream_iterator<${3}>(${4:std::cout}, ${5:" "});${6:}
-endsnippet
-
-# boost format
-snippet bformat "bformat"
-boost::format("${1:}%1%${2:}")%${3:};${4:}
-endsnippet
-
-# boost foreach
-snippet bfor "bfor"
-BOOST_FOREACH(${1}, ${2}) {
-	${3}
-}${4}
-endsnippet
-
-## ros
-snippet pxyz "pcl::PointXYZ"
-pcl::PointXYZ ${1}
-endsnippet
-
-snippet prgb "pcl::PointXYZRGB"
-pcl::PointXYZRGB ${2}
-endsnippet
-
-snippet rosnh "ros node handle"
-ros::NodeHandle ${3:nh_}
-endsnippet
-
-snippet roserr "ros error"
-ROS_ERROR_STREAM(${1});$0
-endsnippet
-
-snippet rosinfo "ros info"
-ROS_INFO_STREAM(${1});$0
-endsnippet
-
-snippet rosdbg "ros debug"
-ROS_DEBUG_STREAM(${1});$0
-endsnippet
-
-snippet rosinfovar "ros info var"
-ROS_INFO_STREAM("${1:} = " << ${2:$1});$0
-endsnippet 
-
-snippet rosdbgvar "ros debug"
-ROS_DEBUG_STREAM("${1:} = " << ${2:$1});$0
-endsnippet
-
-snippet rosass "ros assert"
-ROS_ASSERT(${1:});$0
-endsnippet
-
-snippet rosgetparam "ros get param"
-if (!nh_.getParam("${1:param", ${1})) { ROS_ERROR("No ${1} param"); }$0
 endsnippet
 
 # vim:ft=snippets:
