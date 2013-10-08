@@ -3,6 +3,7 @@
 ###########################################################################
 #                              General Stuff                              #
 ###########################################################################
+
 snippet part "Part" b
 `!p snip.rv = len(t[1])*'#'`
 ${1:Part name}
@@ -59,30 +60,30 @@ $0
 endsnippet
 
 ### from snipmate
-snippet : ":"
+snippet : "field"
 :${1:field name}: ${2:field body}
 endsnippet
 
-snippet * "*"
+snippet * "emphasis"
 *${1:Emphasis}* ${2}
 endsnippet
 
-snippet ** "**"
+snippet ** "strong emphasis"
 **${1:Strong emphasis}** ${2}
 endsnippet
 
-snippet _ "_"
+snippet _ "hyperlink"
 \`!v ${1:hyperlink-name}\`_
 .. _\`!v $1\`: ${2:link-block}
 endsnippet
 
-snippet = "="
+snippet = "title"
 ${1:Title}
 =====${2:=}
 ${3}
 endsnippet
 
-snippet - "-"
+snippet - "title2"
 ${1:Title}
 -----${2:-}
 ${3}
@@ -99,7 +100,7 @@ snippet fig: "fig:"
 	$2
 endsnippet
 
-snippet cont: "cont:"
+snippet cont: "contents:"
 .. contents::
 	${1:content}
 endsnippet
@@ -114,56 +115,54 @@ snippet tip: "tip:"
 	${1:my tips}
 endsnippet
 
-snippet not: "not:"
+snippet note: "note:"
 .. note::
 	${1:my notes}
 endsnippet
 
-.. note::
-	${1:my notes}
+snippet warning: "warning:"
 .. warning::
 	${1:attention!}
 endsnippet
 
-snippet imp: "imp:"
+snippet imp: "important:"
 .. important::
 	${1:this is importatnt}
 endsnippet
 
-snippet att: "att:"
+snippet att: "attention:"
 .. attention::
 	${1:hey!}
 endsnippet
 
-snippet dan: "dan:"
+snippet dan: "danger:"
 .. danger::
 	${1:ah!}
 endsnippet
 
-snippet err: "err:"
+snippet err: "error:"
 .. error::
 	${1:Error occur}
 endsnippet
 
-snippet cau: "cau:"
+snippet cau: "caution:"
 .. caution::
 	${1:Watch out!}
 endsnippet
 
-#Spinx only
-snippet sid: "sid:"
+#Sphinx only
+snippet sid: "sidebar:"
 .. sidebar:: ${1:Title}
 	${2}
 endsnippet
 
-# CJK optimize, CJK has no space between charaters
-snippet *c "*c"
+# CJK optimize, CJK has no space between characters
+snippet *c "cjk emphasis"
 \ *${1:Emphasis}*\ ${2}
 endsnippet
 
-snippet **c "**c"
+snippet **c "cjk strong emphasis"
 \ **${1:Strong emphasis}**\ ${2}
 endsnippet
-
 
 # vim:ft=snippets:
