@@ -1,5 +1,5 @@
 
-snippet cmake
+snippet cmake "cmake templates" b
 cmake_minimum_required(version 2.6)
 project(${1:ProjectName})
 
@@ -9,7 +9,7 @@ include_directories(
 	${$2_INCLUDE_DIR}
 )
 
-add_subdirectory(${0:src})
+add_subdirectory(${3:src})
 
 add_executable($1)
 
@@ -18,7 +18,7 @@ target_link_libraries($1
 )
 endsnippet
 
-snippet catkin_cmake
+snippet catkin_cmake "catkin cmake templates" b
 cmake_minimum_required(VERSION 2.8.3)
 project(${1:name})
 
@@ -55,102 +55,102 @@ target_link_libraries(${PROJECT_NAME}_examples
 )
 endsnippet
 
-snippet include
+snippet include "include directory" b
 include_directories(
-	${${0:INCLUDE_DIR}}
+	${${1:INCLUDE_DIR}}
 )
 endsnippet
 
-snippet find
-find_package(${0:LIBRARY})
+snippet find "find package" b
+find_package(${1:LIBRARY})
 endsnippet
 
-snippet glob
-file(glob ${1:SRCS} *.${0:cpp})
+snippet glob "glob files" b
+file(glob ${1:SRCS} *.${2:cpp})
 endsnippet
 
-snippet subdir
-add_subdirectory(${0:src})
+snippet subdir "add subdir" b
+add_subdirectory(${1:src})
 endsnippet
 
-snippet lib
+snippet lib "add library" b
 add_library(${1:lib} ${2:STATIC}
-	${${0:SRCS}}
+	${${3:SRCS}}
 )
 endsnippet
 
-snippet link
+snippet link "target link lib" b
 target_link_libraries(${1:bin}
-	${0:somelib}
+	${1:somelib}
 )
 endsnippet
 
-snippet bin
+snippet bin "add execeutable" b
 add_executable(${1:bin})
 endsnippet
 
-snippet set
-set(${1:var} ${0:val})
+snippet set "set var" b
+set(${1:var} ${2:val})
 endsnippet
 
-snippet dep
+snippet dep "add dependency" b
 add_dependencies(${1:target}
-	${0:dep}
+	${2:dep}
 )
 endsnippet
 
-snippet props
+snippet props "set property" b
 set_target_properties(${1:target}
 	${2:PROPERTIES} ${3:COMPILE_FLAGS}
-	${0:"-O3 -Wall -pedantic"}
+	${4:"-O3 -Wall -pedantic"}
 )
 endsnippet
 
-snippet find_boost
+snippet find_boost "find boost" b
 find_package(Boost REQUIRED COMPONENTS ${1})
 endsnippet
 
-snippet find_cv
+snippet find_cv "find opencv" b
 find_package(OpenCV REQUIRED)
 endsnippet
 
-snippet find_pcl
+snippet find_pcl "find pcl" b
 find_package(PCL REQUIRED COMPONENTS common)
 endsnippet
 
-snippet find_eigen
+snippet find_eigen "find Eigen" b
 find_package(Eigen REQUIRED)
 endsnippet
 
-snippet include_catkin
+snippet include_catkin "include catkin"
 ${catkin_INCLUDE_DIRS}
 endsnippet
 
-snippet include_eigen
+snippet include_eigen "include eigen"
 ${Eigen_INCLUDE_DIRS}
 endsnippet
 
-snippet include_pcl
+snippet include_pcl "include pcl"
 ${PCL_COMMON_INCLUDE_DIRS}
 endsnippet
 
-snippet include_cv
+snippet include_cv "include opencv"
 ${OpenCV_INCLUDE_DIRS}
 endsnippet
 
-snippet link_catkin
+snippet link_catkin "include catkin"
 ${catkin_LIBRARIES}
 endsnippet
 
-snippet link_pcl
+snippet link_pcl "link pcl"
 ${PCL_COMMON_LIBRARIES}
 endsnippet
 
-snippet link_boost
+snippet link_boost "link boost"
 ${Boost_LIBRARIES}
 endsnippet
 
-snippet link_cv
+snippet link_cv "link cv"
 ${OpenCV_LIBRARIES}
 endsnippet
 
