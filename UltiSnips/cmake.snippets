@@ -1,0 +1,155 @@
+
+snippet cmake
+cmake_minimum_required(version 2.6)
+project(${1:ProjectName})
+
+find_package(${2:LIBRARY})
+
+include_directories(
+	${$2_INCLUDE_DIR}
+)
+
+add_subdirectory(${0:src})
+
+add_executable($1)
+
+target_link_libraries($1
+	${$2_LIBRARIES}
+)
+endsnippet
+
+snippet catkin_cmake
+cmake_minimum_required(VERSION 2.8.3)
+project(${1:name})
+
+find_package(catkin REQUIRED COMPONENTS
+	roscpp
+	cmake_modules
+)
+
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenCV REQUIRED)
+find_package(PCL REQUIRED COMPONENTS common)
+find_package(Eigen REQUIRED)
+
+catkin_package(
+	INCLUDE_DIRS include
+	LIBRARIES
+	CATKIN_DEPENDS roscpp cmake_modules
+	DEPENDS OpenCV PCL Eigen Boost
+)
+
+include_directories(
+	${catkin_INCLUDE_DIRS}
+	${PCL_COMMON_INCLUDE_DIRS}
+	${Eigen_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
+	include
+)
+
+add_executable(${PROJECT_NAME}_examples src/examples.cpp)
+target_link_libraries(${PROJECT_NAME}_examples
+	${catkin_LIBRARIES}
+	${OpenCV_LIBS}
+	${PCL_COMMON_LIBRARIES}
+)
+endsnippet
+
+snippet include
+include_directories(
+	${${0:INCLUDE_DIR}}
+)
+endsnippet
+
+snippet find
+find_package(${0:LIBRARY})
+endsnippet
+
+snippet glob
+file(glob ${1:SRCS} *.${0:cpp})
+endsnippet
+
+snippet subdir
+add_subdirectory(${0:src})
+endsnippet
+
+snippet lib
+add_library(${1:lib} ${2:STATIC}
+	${${0:SRCS}}
+)
+endsnippet
+
+snippet link
+target_link_libraries(${1:bin}
+	${0:somelib}
+)
+endsnippet
+
+snippet bin
+add_executable(${1:bin})
+endsnippet
+
+snippet set
+set(${1:var} ${0:val})
+endsnippet
+
+snippet dep
+add_dependencies(${1:target}
+	${0:dep}
+)
+endsnippet
+
+snippet props
+set_target_properties(${1:target}
+	${2:PROPERTIES} ${3:COMPILE_FLAGS}
+	${0:"-O3 -Wall -pedantic"}
+)
+endsnippet
+
+snippet find_boost
+find_package(Boost REQUIRED COMPONENTS ${1})
+endsnippet
+
+snippet find_cv
+find_package(OpenCV REQUIRED)
+endsnippet
+
+snippet find_pcl
+find_package(PCL REQUIRED COMPONENTS common)
+endsnippet
+
+snippet find_eigen
+find_package(Eigen REQUIRED)
+endsnippet
+
+snippet include_catkin
+${catkin_INCLUDE_DIRS}
+endsnippet
+
+snippet include_eigen
+${Eigen_INCLUDE_DIRS}
+endsnippet
+
+snippet include_pcl
+${PCL_COMMON_INCLUDE_DIRS}
+endsnippet
+
+snippet include_cv
+${OpenCV_INCLUDE_DIRS}
+endsnippet
+
+snippet link_catkin
+${catkin_LIBRARIES}
+endsnippet
+
+snippet link_pcl
+${PCL_COMMON_LIBRARIES}
+endsnippet
+
+snippet link_boost
+${Boost_LIBRARIES}
+endsnippet
+
+snippet link_cv
+${OpenCV_LIBRARIES}
+endsnippet
