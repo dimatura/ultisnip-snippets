@@ -55,14 +55,22 @@ target_link_libraries(${PROJECT_NAME}_examples
 )
 endsnippet
 
+#snippet include "include directory" b
+#include_directories(
+#	${${1:INCLUDE_DIR}}
+#)
+#endsnippet
+
 snippet include "include directory" b
 include_directories(
-	${${1:INCLUDE_DIR}}
-)
 endsnippet
 
+#snippet find "find package" b
+#find_package(${1:LIBRARY})
+#endsnippet
+
 snippet find "find package" b
-find_package(${1:LIBRARY})
+find_package(
 endsnippet
 
 snippet glob "glob files" b
@@ -73,20 +81,29 @@ snippet subdir "add subdir" b
 add_subdirectory(${1:src})
 endsnippet
 
+#snippet lib "add library" b
+#add_library(${1:lib} ${2:STATIC}
+#	${${3:SRCS}}
+#)
+#endsnippet
+
 snippet lib "add library" b
-add_library(${1:lib} ${2:STATIC}
-	${${3:SRCS}}
-)
+add_library(
 endsnippet
+
+
+#snippet link "target link lib" b
+#target_link_libraries(${1:bin}
+#	${2:somelib}
+#)
+#endsnippet
 
 snippet link "target link lib" b
-target_link_libraries(${1:bin}
-	${1:somelib}
-)
+target_link_libraries(
 endsnippet
 
-snippet bin "add execeutable" b
-add_executable(${1:bin})
+snippet exec "add execeutable" b
+add_executable(
 endsnippet
 
 snippet set "set var" b
