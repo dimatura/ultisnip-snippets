@@ -25,7 +25,7 @@ snippet rosparam "roslaunch rosparam" b
 endsnippet
 
 snippet param "roslaunch param" b
-<param name="${1:name}" value="${2:value}" type="${3:str|int|double|bool}"/>
+<param name="${1:name}" value="${2:value}"/>
 endsnippet
 
 snippet arg "roslaunch arg" b
@@ -42,4 +42,29 @@ snippet group "roslaunch group" b
 </group>${3}
 endsnippet
 
+snippet maintainer "ros package maintainer"
+<maintainer email="${1:dimatura@cmu.edu}">${2:Daniel Maturana}</maintainer>
+endsnippet
 
+snippet author "ros package author"
+<author email="${1:dimatura@cmu.edu}">${2:Daniel Maturana}</author>
+endsnippet
+
+snippet buildtool
+<buildtool_depend>catkin</buildtool_depend>
+endsnippet
+
+snippet depend
+<build_depend>${1:roscpp}</build_depend>
+<run_depend>${1:roscpp}</run_depend>
+endsnippet
+
+snippet depend_cv
+<build_depend>libopencv-dev</build_depend>
+<run_depend>libopencv-dev</run_depend>
+endsnippet
+
+snippet depend_pcl
+<build_depend>libpcl-all-dev</build_depend>
+<run_depend>libpcl-all-dev</run_depend>
+endsnippet
