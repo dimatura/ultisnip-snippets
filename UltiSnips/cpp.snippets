@@ -8,7 +8,6 @@ snippet beginend "$1.begin(), $1.end() (beginend)"
 ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
 endsnippet
 
-
 #snippet cl "class .. (class)"
 #class ${1:`!p snip.rv = snip.basename or "name"`} {
 #public:
@@ -45,6 +44,15 @@ snippet vector "std::vector (v)"
 std::vector<${1:char}> v$0;
 endsnippet
 
+snippet tuple "std::tuple"
+std::tuple<$1>$0
+endsnippet
+
+snippet pair "std::pair"
+std::pair<$1, $2>$0
+endsnippet
+
+
 snippet tp "template <typename ..> (template)"
 template <typename ${1:_InputIter}>
 endsnippet
@@ -52,7 +60,7 @@ endsnippet
 #### DMS
 
 snippet array "array"
-boost::array<${1:T}, ${2:N}> ${3};$0
+std::array<${1:T}, ${2:N}> ${3};$0
 endsnippet
 
 # std::vector
@@ -106,17 +114,17 @@ endsnippet
 
 # std::unordered_map
 snippet umap "umap"
-boost::unordered_map<${1:Key}, ${2:T}> ${3};${4}
+std::unordered_map<${1:Key}, ${2:T}> ${3};${4}
 endsnippet
 
 # std::unordered_multiset
 snippet umset "umset"
-boost::unordered_multiset<${1:T}> ${2};${3}
+std::unordered_multiset<${1:T}> ${2};${3}
 endsnippet
 
 # std::unordered_multimap
 snippet ummap "ummap"
-boost::unordered_multimap<${1:Key}, ${2:T}> ${3};${4}
+std::unordered_multimap<${1:Key}, ${2:T}> ${3};${4}
 endsnippet
 
 # std::stack
@@ -169,9 +177,8 @@ class $1 {
 public:
 	$1($2);
 	virtual ~$1();
-private:
-	$1(const $1& other);
-	$1& operator=(const $1& other);
+	$1(const $1& other) = delete;
+	$1& operator=(const $1& other) = delete;
 	$3
 };$0
 endsnippet
@@ -182,14 +189,6 @@ ${4:void} ${1:`!v vim_snippets#Filename('$1', 'ClassName')`}::${2:memberFunction
 	${5}
 }
 endsnippet
-
-# namespace
-#snippet ns "ns"
-#namespace ${1}
-#{
-#	${2}
-#}
-#endsnippet
 
 ##
 ## Input/Output
@@ -263,11 +262,11 @@ std::
 endsnippet
 
 snippet bg "bg"
-begin()
+std::begin()
 endsnippet
 
 snippet end "end"
-end()
+std::end()
 endsnippet
 
 snippet sz "sz"
@@ -306,6 +305,18 @@ endsnippet
 
 snippet ositer "ositer"
 std::copy($1.begin(), $2.end(), std::ostream_iterator<$3>(${4:std::cout}, ${5:" "}));$0
+endsnippet
+
+snippet shared "shared ptr"
+std::shared_ptr<$1>
+endsnippet
+
+snippet sharednew "shared new"
+std::shared_ptr<$1>(new $1);
+endsnippet
+
+snippet unique "unique ptr"
+std::unique_ptr<$1>
 endsnippet
 
 # vim:ft=snippets:

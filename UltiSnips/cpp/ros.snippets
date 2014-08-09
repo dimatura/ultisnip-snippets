@@ -12,7 +12,6 @@ snippet include_pcl "pcl headers"
 #include <pcl/common/common.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/pcl_base.h>
-#include <pcl/features/normal_3d.h>
 #include <sensor_msgs/PointCloud2.h>
 endsnippet
 
@@ -26,10 +25,10 @@ endsnippet
 
 snippet rosloop "manual ros event loop"
 ros::Rate rate(100);
-while (ros::ok()) {
-    $1
-    rate.sleep();
-    ros::spinOnce();
+	while (ros::ok()) {
+	$1
+	rate.sleep();
+	ros::spinOnce();
 }
 endsnippet
 

@@ -767,8 +767,14 @@ for option, argument in opts:
 		verbose = argument
 endsnippet
 
+snippet argparse "argparse"
+parser = argparse.ArgumentParser()
+parser.add_argument('$1', $2) 
+args = parser.parse_args()
+endsnippet
+
 snippet pr "pr"
-print ${1}
+print(${1})
 endsnippet
 
 snippet ret "ret"
@@ -792,35 +798,59 @@ os.path.
 endsnippet
 
 snippet dbg "dbg"
-print "${1:} = ", ${2:$1}${3}
+print("${1:} = %r"%(${2:$1}))${3}
 endsnippet
 
 # logging
 # glog = get log
-snippet glog "glog"
+snippet glog "get logger"
 import logging
 logger = logging.getLogger(${1:__name__})
 endsnippet
 
-snippet le "le"
+snippet le "log error"
 logger.error(${1:msg})
 endsnippet
 
-# conflict with lambda=ld, therefor we change into Logger.debuG
-snippet lg "lg"
+# conflict with lambda=ld, therefor we change into Logger.debu
+snippet lg "log debug"
 logger.debug(${1:msg})
 endsnippet
 
-snippet lw "lw"
+snippet lw "log warn"
 logger.warning(${1:msg})
 endsnippet
 
-snippet lc "lc"
+snippet lc "log critical"
 logger.critical(${1:msg})
 endsnippet
 
-snippet li "li"
+snippet li "log info"
 logger.info(${1:msg})
+endsnippet
+
+snippet impnp "import numpy and friends"
+import numpy
+import matplotlib as mpl
+import matplotlib.pyplot as pl
+import pandas as pd
+endsnippet
+
+snippet impros "import ros and friends"
+import rospy
+from sensor_msgs.msg import PointCloud2
+endsnippet
+
+snippet rosloop
+	pub = rospy.Publisher('cloud', PointCloud2)
+	rospy.init_node('node')
+	while not rospy.is_shutdown():
+		msg.header = rospy.Header(stamp=rospy.Time.now(), frame_id='/world')
+		#msg = py_pc2.create_cloud_xyz32(header, voxel_xyz)
+		rospy.loginfo('publishing')
+		pub.publish(msg)
+		rospy.loginfo('done')
+		rospy.sleep(1.)
 endsnippet
 
 # vim:ft=snippets:
