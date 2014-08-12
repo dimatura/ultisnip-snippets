@@ -1,24 +1,66 @@
 extends texmath
 
-###########################################################################
-#                             LATEX SNIPPETS                              #
-###########################################################################
+# template
 
-snippet r "\\ref{}" w
-\ref{$1}
+snippet template "template document"
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{booktabs}
+
+\title{${1:title}}
+
+\author{${2:author}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+${3:abstract}
+\end{abstract}
+
+\section{${4:section}}
+
+\bibliographystyle{plainurl}
+\bibliography{paper}
+
+\end{document}
 endsnippet
 
-###########################################################################
-#                            TEXTMATE SNIPPETS                            #
-###########################################################################
+# general
 
-#################
-# GENERAL STUFF #
-#################
 snippet "b(egin)?" "begin{} / end{}" br
 \begin{${1:something}}
 	${0:${VISUAL}}
 \end{$1}
+endsnippet
+
+# packages
+
+snippet "packages" "common packages"
+\usepackage{graphicx}
+\usepackage{subfigure} 
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{shortbold}
+\usepackage{booktabs}
+endsnippet
+
+#usepackage
+snippet usepac "usepackage"
+\usepackage[${1:options}]{${2:package}} ${3}
 endsnippet
 
 ####################
@@ -31,50 +73,100 @@ $0${2/((?<=.)c|l|r)|./(?1: & )/g}
 \end{$1${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
 endsnippet
 
+snippet table
+\begin{table}
+	\begin{center}
+	\begin{tabular}{ l c }
+	${1:}
+	\end{tabular}
+	\end{center}
+	\caption{${2:}}
+	\label{${3:tab:foo}}
+\end{table}
+$0
+endsnippet
+
+# Tabular
+#snippet tab "tab"
+#\begin{${1:tabular}}{${2:c}}
+#${3}
+#\end{$1}
+#endsnippet
+
+snippet tabular "tabular example"
+\begin{tabular}{p{.30\linewidth} p{.20\linewidth} p{.20\linewidth} }
+	\toprule
+	\addlinespace
+	header1               & header2   & header3  \\
+	\cmidrule(l){1-1} \cmidrule(lr){2-2} \cmidrule(l){3-3}
+	\addlinespace
+	row1                  & 429       & 762      \\
+	\addlinespace
+	row2                  & 1196      & 1196     \\
+	\addlinespace
+	row3                  & 1195      & 1195     \\
+	row4                  & 1195      & 1195     \\
+	\bottomrule
+\end{tabular}
+endsnippet
+
 ########################
 # ENUM, DESCR, ITEMIZE #
 ########################
-snippet enum "Enumerate" b
+
+snippet een "Enumerate" b
 \begin{enumerate}
 	\item $0
 \end{enumerate}
 endsnippet
 
-snippet item "Itemize" b
+snippet eit "Itemize" b
 \begin{itemize}
 	\item $0
 \end{itemize}
 endsnippet
 
-snippet desc "Description" b
+snippet ede "Description" b
 \begin{description}
 	\item[$1] $0
 \end{description}
 endsnippet
 
+# Endless new item
+snippet ]i "]i"
+\item ${1}
+${2:]i}
+endsnippet
+
+snippet itd "itd"
+\item[${1:description}] ${2:item}
+endsnippet
+
+
+
 #####################################
 # SECTIONS, CHAPTERS AND THEIR LIKE #
 #####################################
 
-snippet part "Part" b
-\part{${1:part name}}
-\label{prt:${2:${1/(\w+)|\W+/(?1:\L$0\E:_)/g}}}
+#snippet part "Part" b
+#\part{${1:part name}}
+#\label{prt:${2:${1/(\w+)|\W+/(?1:\L$0\E:_)/g}}}
+#
+#${0}
+#
+#% part $2 (end)
+#endsnippet
+#
+#snippet cha "Chapter" b
+#\chapter{${1:chapter name}}
+#\label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
+#
+#${0}
+#
+#% chapter $2 (end)
+#endsnippet
 
-${0}
-
-% part $2 (end)
-endsnippet
-
-snippet cha "Chapter" b
-\chapter{${1:chapter name}}
-\label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
-
-${0}
-
-% chapter $2 (end)
-endsnippet
-
-snippet sec "Section" b
+snippet sse "Section" b
 \section{${1:section name}}
 \label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
 
@@ -84,7 +176,7 @@ ${0}
 endsnippet
 
 
-snippet sub "Subsection" b
+snippet sss "Subsection" b
 \subsection{${1:subsection name}}
 \label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
 
@@ -93,7 +185,7 @@ ${0}
 % subsection $2 (end)
 endsnippet
 
-snippet ssub "Subsubsection" b
+snippet ssss "Subsubsection" b
 \subsubsection{${1:subsubsection name}}
 \label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
 
@@ -103,277 +195,64 @@ ${0}
 
 endsnippet
 
-snippet par "Paragraph" b
-\paragraph{${1:paragraph name}}
-\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
+#snippet par "Paragraph" b
+#\paragraph{${1:paragraph name}}
+#\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
+#
+#${0}
+#
+#% paragraph $2 (end)
+#endsnippet
 
-${0}
-
-% paragraph $2 (end)
-endsnippet
-
-snippet subp "Subparagraph" b
-\subparagraph{${1:subparagraph name}}
-\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
-
-${0}
-
-% subparagraph $2 (end)
-endsnippet
+#snippet subp "Subparagraph" b
+#\subparagraph{${1:subparagraph name}}
+#\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/g}}}
+#
+#${0}
+#
+#% subparagraph $2 (end)
+#endsnippet
 
 ###############
 #  Utilities  #
 ###############
 
-snippet pac "Package" b
-\usepackage[${1:options}]{${2:package}}$0
-endsnippet
-
-snippet lp "Long parenthesis" 
-\left(${1:${VISUAL:contents}}\right)$0
-endsnippet
-
-## DMS
-#PREAMBLE
-snippet newcommand "new command"
-\newcommand{\${1:cmd}}[${2:opt}]{${3:realcmd}} ${4}
-endsnippet
-
-#usepackage
-snippet usepack "up"
-\usepackage[${1:options}]{${2:package}} ${3}
-endsnippet
-
-#newunicodechar
-snippet nuc "nuc"
-\newunicodechar{${1}}{${2:\ensuremath}${3:tex-substitute}}} ${4}
-endsnippet
-
-#DeclareMathOperator
-snippet dmo "dmo"
-\DeclareMathOperator{${1}}{${2}} ${3}
-endsnippet
-
-#DOCUMENT
-# \begin{}...\end{}
-#snippet begin "begin"
-#\begin{${1:env}}
-#	${2}
-#\end{$1}
-#endsnippet
-
-# Tabular
-#snippet tab "tab"
-#\begin{${1:tabular}}{${2:c}}
-#${3}
-#\end{$1}
-#endsnippet
-
-snippet thm "thm"
-\begin[${1:author}]{${2:thm}}
-${3}
-\end{$2}
-endsnippet
-
 snippet center "center"
 \begin{center}
-	$1
+	${1:${VISUAL}}
 \end{center}
 endsnippet
 
-# Align(ed)
-snippet ali "ali"
-\begin{align${1:ed}}
-	${2}
-\end{align$1}
+snippet r "\\ref{}" w
+\ref{$1}
 endsnippet
-
-# Gather(ed)
-snippet gat "gat"
-\begin{gather${1:ed}}
-	${2}
-\end{gather$1}
-endsnippet
-
-# Equation
-#snippet eq "eq"
-#\begin{equation}
-#	${1}
-#\end{equation}
-#endsnippet
-
-# Equation
-snippet eq* "eq*"
-\begin{equation*}
-	${1}
-\end{equation*}
-endsnippet
-
-# Unnumbered Equation
-snippet \ "\"
-\[
-	$1
-\]
-endsnippet
-
-# Equation array
-snippet eqnarray "eqnarray"
-\begin{eqnarray}
-	$1
-\end{eqnarray}
-endsnippet
-
-# Enumerate
-#snippet enum "enum"
-#\begin{enumerate}
-#	\item ${1}
-#\end{enumerate}
-#endsnippet
-#
-## Itemize
-#snippet itemize "itemize"
-#\begin{itemize}
-#	\item ${1}
-#\end{itemize}
-#endsnippet
-
-#snippet item "item"
-#\item ${1}
-#endsnippet
-
-# Description
-#snippet desc "desc"
-#\begin{description}
-#	\item[${1}] ${2}
-#\end{description}
-#endsnippet
-
-# Endless new item
-snippet ]i "]i"
-\item ${1}
-${2:]i}
-endsnippet
-
-# Matrix
-#snippet mat "mat"
-#\begin{${1:p/b/v/V/B/small}matrix}
-#	${2}
-#\end{$1matrix}
-#endsnippet
-
-# Cases
-snippet cas "cas"
-\begin{cases}
-	${1:equation}, &\text{ if }${2:case}\\
-	${3}
-\end{cases}
-endsnippet
-
-# Split
-snippet spl "spl"
-\begin{split}
-	${1}
-\end{split}
-endsnippet
-
-# Part
-#snippet part "part"
-#\part{${1:part name}} % (fold)
-#\label{prt:${2:$1}}
-#${3}
-#% part $2 (end)
-#endsnippet
-
-# Chapter
-#snippet cha "cha"
-#\chapter{${1:chapter name}}
-#\label{cha:${2:$1}}
-#${3}
-#endsnippet
-
-# Section
-#snippet sec "sec"
-#\section{${1:section name}}
-#\label{sec:${2:$1}}
-#${3}
-#endsnippet
-
-# Section without number
-snippet sec* "sec*"
-\section*{${1:section name}}
-\label{sec:${2:$1}}
-${3}
-endsnippet
-
-# Sub Section
-#snippet sub "sub"
-#\subsection{${1:subsection name}}
-#\label{sub:${2:$1}}
-#${3}
-#endsnippet
-
-# Sub Section without number
-snippet sub* "sub*"
-\subsection*{${1:subsection name}}
-\label{sub:${2:$1}}
-${3}
-endsnippet
-
-# Sub Sub Section
-#snippet subs "subs"
-#\subsubsection{${1:subsubsection name}}
-#\label{ssub:${2:$1}}
-#${3}
-#endsnippet
-
-# Sub Sub Section without number
-#snippet subs* "subs*"
-#\subsubsection*{${1:subsubsection name}}
-#\label{ssub:${2:$1}}
-#${3}
-#endsnippet
-
-# Paragraph
-#snippet par "par"
-#\paragraph{${1:paragraph name}}
-#\label{par:${2:$1}}
-#${3}
-#endsnippet
-
-# Sub Paragraph
-#snippet subp "subp"
-#\subparagraph{${1:subparagraph name}}
-#\label{subp:${2:$1}}
-#${3}
-#endsnippet
 
 snippet ni "ni"
 \noindent
-${1}
+$1
 endsnippet
 
-#References
-snippet itd "itd"
-\item[${1:description}] ${2:item}
-endsnippet
-
-snippet fig "ref figure"
+snippet rfig "ref figure"
 ${1:Figure}~\ref{${2:fig:}}${3}
 endsnippet
 
-snippet table "table"
+snippet rtab "ref table"
 ${1:Table}~\ref{${2:tab:}}${3}
 endsnippet
 
-snippet listing "listing"
+snippet rlist "ref listing"
 ${1:Listing}~\ref{${2:list}}${3}
 endsnippet
 
-snippet section "section"
+snippet rsec "ref section"
 ${1:Section}~\ref{sec:${2}} ${3}
 endsnippet
 
-snippet page "page"
+snippet req "ref eqn"
+${1:Eqn.}~\ref{eq:${2}} ${3}
+endsnippet
+
+snippet rpage "page"
 ${1:page}~\pageref{${2}} ${3}
 endsnippet
 
@@ -382,7 +261,7 @@ snippet index "index"
 endsnippet
 
 #Citations
-snippet citen "citen"
+snippet cite "vanilla cite"
 \cite{$1} ${2}
 endsnippet
 
@@ -395,11 +274,11 @@ snippet citet "citet"
 \citet{$1} ${2}
 endsnippet
 
-snippet cite "cite"
+snippet citen "cite ?"
 \cite[${1}]{${2}} ${3}
 endsnippet
 
-snippet fcite "fcite"
+snippet fcite "foot cite"
 \footcite[${1}]{${2}}${3}
 endsnippet
 
@@ -444,77 +323,39 @@ endsnippet
 
 snippet figure "figure"
 \begin{figure}[h]
-    \begin{center}
-	\includegraphics[width=0.8\textwidth]{$1}
-    \end{center}
-    \caption{$3}
-    \label{fig:$4}
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{$1}
+	\end{center}
+	\caption{$3}
+	\label{fig:$4}
 \end{figure}
 endsnippet
 
 snippet tikz "tikz"
 \begin{figure}
-    \begin{center}
-	\begin{tikzpicture}[scale=${1:1}]
-		${2}
-	\end{tikzpicture}
-    \end{center}
-    \caption{${3}}
-    \label{fig:${4}}
+	\begin{center}
+		\begin{tikzpicture}[scale=${1:1}]
+			${2}
+		\end{tikzpicture}
+	\end{center}
+	\caption{${3}}
+	\label{fig:${4}}
 \end{figure}
 endsnippet
 
-#math
-snippet stackrel "stackrel"
-\stackrel{${1:above}}{${2:below}} ${3}
-endsnippet
-
-snippet frac "frac"
-\frac{${1:num}}{${2:denom}} ${3}
-endsnippet
-
-snippet sum "sum"
-\sum^{${1:n}}_{${2:i=1}}{${3}}
-endsnippet
-
-snippet graphics "figure"
+snippet graphics "bare includegraphics"
 \includegraphics[width=0.8\textwidth]{${1}}
 endsnippet
 
-#snippet frac "frac"
-#\frac{$1}{$2}$0
-#endsnippet
-
 snippet columns "columns"
 \begin{columns}
-    \begin{column}[l]{0.5\textwidth}
-    $1
-    \end{column}
-    \begin{column}[l]{0.5\textwidth}
-    $2
-    \end{column}
+	\begin{column}[l]{0.5\textwidth}
+	${1}
+	\end{column}
+	\begin{column}[l]{0.5\textwidth}
+	${2}
+	\end{column}
 \end{columns}
-endsnippet
-
-snippet tabular "tabular"
-\begin{tabular}{p{.30\linewidth} p{.20\linewidth} p{.20\linewidth} }
-    \toprule
-    \addlinespace
-    header1               & header2   & header3 \\
-    \cmidrule(l){1-1} \cmidrule(lr){2-2} \cmidrule(l){3-3}
-    \addlinespace
-    row1                  & 429       & 762      \\
-    \addlinespace
-    row2                  & 1196      & 1196     \\
-    \addlinespace
-    row3                  & 1195      & 1195     \\
-    row4                  & 1195      & 1195     \\
-    \bottomrule
-\end{tabular}
-endsnippet
-
-snippet lim "lim"
-\lim_{${1:x \to +\infty}} ${2}
 endsnippet
 
 snippet frame "frame"
@@ -522,35 +363,31 @@ snippet frame "frame"
 	\frametitle{${1:title}}
 	${2}
 \end{frame}
+$0
 endsnippet
 
 snippet block "block"
 \begin{block}{${1:title}}
-${2}
+	${2}
 \end{block}
+$0
 endsnippet
 
 snippet alert "alert"
 \begin{alertblock}{${1:title}}
-${2}
+	${2}
 \end{alertblock}
+$0
 endsnippet
 
 snippet example "example"
 \begin{exampleblock}{${1:title}}
-${2}
+	${2}
 \end{exampleblock}
 endsnippet
 
-#snippet col2 "col2"
-#\begin{columns}
-#	\begin{column}{0.5\textwidth}
-#		${1}
-#	\end{column}
-#	\begin{column}{0.5\textwidth}
-#		${2}
-#	\end{column}
-#\end{columns}
-#endsnippet
+snippet color "use color"
+\textcolor{${1:red}}{${2:${VISUAL}}}$0
+endsnippet
 
 # vim:ft=snippets:
