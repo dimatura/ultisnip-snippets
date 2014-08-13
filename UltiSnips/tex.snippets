@@ -14,6 +14,14 @@ snippet template "template document"
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{booktabs}
+\usepackage{listings}
+\lstset{language=C,
+basicstyle=\ttfamily\color{MidnightBlue},
+tabsize=2,
+rulecolor=\color{lightgray},
+%frame=single,
+%breaklines=true,
+columns=fullflexible}
 
 \title{${1:title}}
 
@@ -28,13 +36,66 @@ ${3:abstract}
 
 \section{${4:section}}
 
-\bibliographystyle{plainurl}
-\bibliography{paper}
+%\bibliographystyle{plainurl}
+%\bibliography{paper}
 
 \end{document}
 endsnippet
 
-# general
+snippet beamer_template "beamer template"
+\documentclass[xcolor=svgnames,mathserif,12pt]{beamer}
+\usepackage{helvet}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{float}
+\usepackage{array,booktabs,tabularx}
+\usepackage{xcolor}
+%\usepackage{algorithmic}
+%\usepackage{program}
+\usepackage{listings}
+\usepackage{shortbold}
+\lstset{language=C,
+basicstyle=\ttfamily\color{MidnightBlue},
+tabsize=2,
+rulecolor=\color{lightgray},
+%frame=single,
+%breaklines=true,
+columns=fullflexible}
+\let\Tiny=\tiny
+\usetheme{Pittsburgh} 
+
+\usecolortheme{beaver}
+%\usetheme{default}
+%\setbeamercolor{itemize item}{fg=white}
+\setbeamersize{text margin left=1.2cm}
+\setbeamersize{text margin right=1.2cm}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}[page number]{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+
+\setbeamercolor{title}{bg=white}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{${1:title}}
+
+\author{\small{${2:author}}}
+
+%\date{}
+
+\institute{}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\end{document}
+endsnippet
 
 snippet "b(egin)?" "begin{} / end{}" br
 \begin{${1:something}}
@@ -389,5 +450,6 @@ endsnippet
 snippet color "use color"
 \textcolor{${1:red}}{${2:${VISUAL}}}$0
 endsnippet
+
 
 # vim:ft=snippets:
