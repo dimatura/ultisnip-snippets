@@ -405,8 +405,7 @@ snippet tikz "tikz"
 endsnippet
 
 snippet cgraphics "centered includegraphics"
-\centering
-\includegraphics[width=0.8\textwidth]{${1}}
+\centerline{\includegraphics[width=0.8\textwidth]{${1}}}
 $0
 endsnippet
 
@@ -436,7 +435,7 @@ endsnippet
 
 snippet block "block"
 \begin{block}{${1:title}}
-	${2}
+	${2:${VISUAL}}
 \end{block}
 $0
 endsnippet

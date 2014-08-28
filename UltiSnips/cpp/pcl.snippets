@@ -1,0 +1,53 @@
+snippet pcl_include "common pcl headers"
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/common/common.h>
+#include <pcl/common/eigen.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/pcl_base.h>
+#include <sensor_msgs/PointCloud2.h>
+endsnippet
+
+snippet pcl "pcl"
+pcl::
+endsnippet
+
+snippet pxyz "pcl::PointXYZ"
+pcl::PointXYZ
+endsnippet
+
+snippet pxyzi "pcl::PointXYZI"
+pcl::PointXYZI
+endsnippet
+
+snippet pxyzl "pcl::PointXYZL"
+pcl::PointXYZL
+endsnippet
+
+snippet pxyzrgb "pcl::PointXYZRGB"
+pcl::PointXYZRGB
+endsnippet
+
+snippet pcxyz "pcl point cloud"
+pcl::PointCloud<pcl::PointXYZ>
+endsnippet
+
+snippet pcxyzrgb "pcl point cloud"
+pcl::PointCloud<pcl::PointXYZRGB>
+endsnippet
+
+snippet pcxyzi "pcl point cloud"
+pcl::PointCloud<pcl::PointXYZI>
+endsnippet
+
+snippet pcxyzl "pcl point cloud"
+pcl::PointCloud<pcl::PointXYZL>
+endsnippet
+
+snippet pc "pcl point cloud"
+pcl::PointCloud< $1 >
+endsnippet
+
+snippet pc2 "pointcloud2"
+sensor_msgs::PointCloud2
+endsnippet

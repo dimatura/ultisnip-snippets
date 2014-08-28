@@ -31,3 +31,20 @@ endsnippet
 #boost::shared_ptr<$1>(new $1);
 #endsnippet
 
+# boost-python
+snippet pdef "boost python def"
+.def("${1:name}", ${2:pointer}, ${3:help})$0
+endsnippet
+
+snippet pmodule "boost python module"
+BOOST_PYTHON_MODULE(${1:name}) {
+	using namespace boost::python;
+	${2:}
+}
+endsnippet
+
+snippet pclass "boost python class"
+class_<${1:class}>( ${2:init} )
+	${3}
+	;$0
+endsnippet
