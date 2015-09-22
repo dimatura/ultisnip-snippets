@@ -2,6 +2,16 @@
 #                            TextMate Snippets                            #
 ###########################################################################
 
+snippet t "Simple tag" b
+<${1:tag}>
+	${2:content}
+</${1/([\w:._-]+).*/$1/}>
+endsnippet
+
+snippet ti "Inline tag" b
+<${1:tag}>${2:content}</${1/([\w:._-]+).*/$1/}>
+endsnippet
+
 global !p
 def x(snip):
     if snip.ft.startswith("x"):
@@ -275,6 +285,10 @@ snippet movie "Embed QT movie (movie)" b
 		pluginspage="http://www.apple.com/quicktime/download/"
 	`!p x(snip)`>
 </object>
+endsnippet
+
+snippet img "<img>"
+<img src="${1}" alt="${2}" height="${3:240}">
 endsnippet
 
 snippet html5 "HTML5 Template"
