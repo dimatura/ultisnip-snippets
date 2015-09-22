@@ -247,6 +247,10 @@ snippet li "list item"
 <li>$0</li>
 endsnippet
 
+snippet img "image"
+<img src="${1}" alt="">
+endsnippet
+
 snippet ul "unordered list"
 <ul>
 $0
@@ -289,6 +293,13 @@ endsnippet
 
 snippet img "<img>"
 <img src="${1}" alt="${2}" height="${3:240}">
+endsnippet
+
+snippet section
+<section>
+	<h2>${1}</h2>
+	$0
+</section>
 endsnippet
 
 snippet html5 "HTML5 Template"
