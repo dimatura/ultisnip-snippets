@@ -1,9 +1,28 @@
 snippet zim "zim header"
 Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.4
-
 Creation-Date: `!v strftime('%FT%T')`
 
 ====== ${1:title} ======
 Created `!v strftime('%A, %d %B %Y')`
+endsnippet
+
+snippet zcode "zim code"
+{{{code: lang="${1:python}" linenumbers="False"
+endsnippet
+
+snippet zh1 "zim header 1"
+====== 
+endsnippet
+
+snippet zh2 "zim header 2"
+===== 
+endsnippet
+
+snippet zh3 "zim header 3"
+==== 
+endsnippet
+
+snippet zh4 "zim header 4"
+=== 
 endsnippet
