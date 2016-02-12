@@ -528,9 +528,9 @@ endsnippet
 ##!/usr/bin/env python
 #endsnippet
 
-snippet imp "imp"
-import ${1:module}
-endsnippet
+#snippet imp "imp"
+#import ${1:module}
+#endsnippet
 
 snippet uni "uni"
 def __unicode__(self):
@@ -652,86 +652,14 @@ snippet ld "ld"
 ${1:var} = lambda ${2:vars} : ${3:action}
 endsnippet
 
-#snippet . "."
-#self.
-#endsnippet
-
-#snippet try "Try/Except"
-#try:
-#	${1}
-#except ${2:Exception}, ${3:e}:
-#	${4:raise $3}
-#endsnippet
-#
-#snippet try "Try/Except/Else"
-#try:
-#	${1}
-#except ${2:Exception}, ${3:e}:
-#	${4:raise $3}
-#else:
-#	${5}
-#endsnippet
-#
-#snippet try "Try/Except/Finally"
-#try:
-#	${1}
-#except ${2:Exception}, ${3:e}:
-#	${4:raise $3}
-#finally:
-#	${5}
-#endsnippet
-#
-#snippet try "Try/Except/Else/Finally"
-#try:
-#	${1}
-#except ${2:Exception}, ${3:e}:
-#	${4:raise $3}
-#else:
-#	${5}
-#finally:
-#	${6}
-#endsnippet
-
-# if __name__ == '__main__':
-#snippet ifmain "ifmain"
-#if __name__ == '__main__':
-#	${1:main()}
-#endsnippet
-
-# __magic__
-#snippet _ "_"
-#__${1:init}__${2}
-#endsnippet
-
-# python debugger (pdb)
-snippet pdb "pdb"
-import pdb; pdb.set_trace()
-endsnippet
-
-# ipython debugger (ipdb)
-snippet ipdb "ipdb"
-import ipdb; ipdb.set_trace()
-endsnippet
-
 # ipython debugger (pdbbb)
-snippet pdbbb "pdbbb"
+snippet pdbpp "pdbpp"
 import pdbpp; pdbpp.set_trace()
-endsnippet
-
-# python console debugger (pudb)
-snippet pudb "pudb"
-import pudb; pudb.set_trace()
 endsnippet
 
 snippet pprint "pprint"
 import pprint; pprint.pprint(${1})${2}
 endsnippet
-
-#snippet " """
-#"""
-#${1:doc}
-#"""
-#endsnippet
 
 # test function/method
 snippet test "test"
@@ -739,12 +667,12 @@ def test_${1:description}(${2:`!v indent('.') ? 'self' : ''`}):
 	${3}
 endsnippet
 
-# test case
-snippet testcase "testcase"
-class ${1:ExampleCase}(unittest.TestCase):
-	def test_${2:description}(self):
-		${3}
-endsnippet
+## test case
+#snippet testcase "testcase"
+#class ${1:ExampleCase}(unittest.TestCase):
+#	def test_${2:description}(self):
+#		${3}
+#endsnippet
 
 snippet fut "fut"
 from __future__ import ${1}
@@ -771,6 +699,14 @@ snippet argparse "argparse"
 parser = argparse.ArgumentParser()
 parser.add_argument('$1', $2) 
 args = parser.parse_args()
+endsnippet
+
+snippet click "click"
+@click.command()
+@click.argument('foo', type=click.Path(exists=True))
+@click.option('--bar', '-b', is_flag=True)
+def main(foo, bar):
+	click.echo(foo, bar)
 endsnippet
 
 snippet pr "pr"
