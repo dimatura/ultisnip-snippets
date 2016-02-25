@@ -12,6 +12,78 @@ ${3:left: expression(eval(document.documentElement.scrollLeft));
 }${4:width: expression(eval(document.documentElement.clientWidth));}$0
 endsnippet
 
+snippet bxsh "box-shadow: color-hex x y blur (text)"
+box-shadow: ${1:${2:offset-x} ${3:offset-y} ${4:blur} ${5:spread} ${6:color}};$0
+endsnippet
+
+#
+# Colors
+#
+
+snippet rgb "color rgb"
+rgb(${1:255}, ${2:255}, ${3:255})$0
+endsnippet
+
+snippet rgba "color rgba"
+rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5})$0
+endsnippet
+
+snippet hsl "color hsl"
+hsl(${1:360}, ${2:100}%, ${3:100}%)$0
+endsnippet
+
+snippet hsla "color hsla"
+hsla(${1:360}, ${2:100}%, ${3:100}%, ${4:0.5})$0
+endsnippet
+
+#
+# Selectors
+#
+
+snippet :fc
+:first-child
+endsnippet
+
+snippet :lc
+:last-child
+endsnippet
+
+snippet :nc
+:nth-child($0)
+endsnippet
+
+snippet :nlc
+:nth-last-child($0)
+endsnippet
+
+snippet :oc
+:only-child
+endsnippet
+
+#
+# Pseudo-elements
+#
+
+snippet :a
+:after
+endsnippet
+
+snippet :b
+:before
+endsnippet
+
+snippet ::a
+::after
+endsnippet
+
+snippet ::b
+::before
+endsnippet
+
+###########################################################################
+#                    Most of these came from TextMate                     #
+###########################################################################
+
 snippet background "background-attachment: scroll:fixed (background)"
 background-attachment: ${1:scroll/fixed};$0
 endsnippet
