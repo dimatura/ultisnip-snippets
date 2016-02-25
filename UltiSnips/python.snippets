@@ -922,15 +922,15 @@ from sensor_msgs.msg import PointCloud2
 endsnippet
 
 snippet rosloop
-	pub = rospy.Publisher('cloud', PointCloud2)
-	rospy.init_node('node')
-	while not rospy.is_shutdown():
-		msg.header = rospy.Header(stamp=rospy.Time.now(), frame_id='/world')
-		#msg = py_pc2.create_cloud_xyz32(header, voxel_xyz)
-		rospy.loginfo('publishing')
-		pub.publish(msg)
-		rospy.loginfo('done')
-		rospy.sleep(1.)
+pub = rospy.Publisher('cloud', PointCloud2)
+rospy.init_node('node')
+while not rospy.is_shutdown():
+	msg.header = rospy.Header(stamp=rospy.Time.now(), frame_id='/world')
+	#msg = py_pc2.create_cloud_xyz32(header, voxel_xyz)
+	rospy.loginfo('publishing')
+	pub.publish(msg)
+	rospy.loginfo('done')
+	rospy.sleep(1.)
 endsnippet
 
 # vim:ft=snippets:
