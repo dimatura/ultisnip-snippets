@@ -885,40 +885,83 @@ endsnippet
 # glog = get log
 snippet glog "get logger"
 import logging
-logger = logging.getLogger(${1:__name__})
+log = logging.getLogger(${1:__name__})
 endsnippet
 
 snippet le "log error"
-logger.error(${1:msg})
+log.error(${1:msg})
 endsnippet
 
 # conflict with lambda=ld, therefor we change into Logger.debu
 snippet lg "log debug"
-logger.debug(${1:msg})
+log.debug(${1:msg})
 endsnippet
 
 snippet lw "log warn"
-logger.warning(${1:msg})
+log.warning(${1:msg})
 endsnippet
 
 snippet lc "log critical"
-logger.critical(${1:msg})
+log.critical(${1:msg})
 endsnippet
 
 snippet li "log info"
-logger.info(${1:msg})
+log.info(${1:msg})
 endsnippet
 
-snippet impnp "import numpy and friends"
-import numpy
-import matplotlib as mpl
-import matplotlib.pyplot as pl
-import pandas as pd
+snippet logging "basic configure logging"
+import logging
+logging.basicConfig(format='%(asctime)s|%(name)s|%(levelname)s: %(message)s', level=logging.INFO)
 endsnippet
+
+snippet logging2 "human+computer configure logging"
+import logging
+root_logger = logging.getLogger()
+root_logger.setLevel(${1:logging.INFO})
+human_log_fmt = logging.Formatter('%(asctime)s|%(name)s|%(levelname)s: %(message)s')
+ch = logging.StreamHandler(sys.stdout)
+ch.setFormatter(human_log_fmt)
+root_logger.addHandler(ch)
+
+computer_log_fmt = logging.Formatter('%(created)s|%(name)s|%(pathname)s|%(lineno)d|%(levelname)s|%(message)s')
+fh = logging.FileHandler(${2:log_fname})
+fh.setFormatter(computer_log_fmt)
+root_logger.addHandler(fh)
+endsnippet
+
 
 snippet impros "import ros and friends"
 import rospy
 from sensor_msgs.msg import PointCloud2
+endsnippet
+
+snippet impnp "import numpy"
+import numpy as np
+endsnippet
+
+snippet imppd "import pandas"
+import pandas as pd
+endsnippet
+
+snippet imppl "import matplotlib"
+import matplotlib as mpl
+import matplotlib.pyplot as pl
+endsnippet
+
+snippet impcv2 "import cv2"
+import cv2
+endsnippet
+
+snippet imppil "import pil"
+from PIL import Image
+endsnippet
+
+snippet impspath "import spath.py"
+from spath import Path
+endsnippet
+
+snippet impod "import ordered dict"
+from collections import OrderedDict
 endsnippet
 
 snippet rosloop
@@ -932,5 +975,6 @@ while not rospy.is_shutdown():
 	rospy.loginfo('done')
 	rospy.sleep(1.)
 endsnippet
+
 
 # vim:ft=snippets:
