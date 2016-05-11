@@ -271,9 +271,9 @@ snippet li "list item" w
 <li>$0</li>
 endsnippet
 
-snippet img "image"
-<img src="${1}" alt="">
-endsnippet
+#snippet img "image"
+#<img src="${1}" alt="">
+#endsnippet
 
 snippet ul "unordered list" w
 <ul>
@@ -329,20 +329,42 @@ snippet section
 </section>
 endsnippet
 
+snippet aside
+<aside class="notes">
+	$0
+</aside>
+endsnippet
+
+snippet sidebyside
+<div class="side-by-side">
+	<div style="font-size:0.8em; " class="side">
+		$1
+		<ul style="nobullet">
+			<li class="fragment" data-fragment-index="1"> Bounding Box </li>
+		</ul>
+	</div>
+	<div style="margin:auto; width: 60%;" class="side">
+		<div style="position:relative; height: 480px;">
+			<img src="media/imagepath" class="absplace2"/>
+		</div>
+	</div>
+</div>
+endsnippet
+
 snippet html5 "HTML5 Template"
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${1}</title>
-    <meta charset="utf-8" />
+	<title>${1}</title>
+	<meta charset="utf-8" />
 </head>
 <body>
-    <header>
-        ${2}
-    </header>
-    <footer>
-        ${4}
-    </footer>
+	<header>
+		${2}
+	</header>
+	<footer>
+		${4}
+	</footer>
 </body>
 </html>
 endsnippet
