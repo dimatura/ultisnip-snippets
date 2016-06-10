@@ -1019,4 +1019,12 @@ while not rospy.is_shutdown():
 	rospy.sleep(1.)
 endsnippet
 
+snippet rosbag
+import rosbag
+bag = rosbag.Bag('${0}')
+for topic, msg, ts in bag.read_messages(topics=['${1}']):
+	bag.write(topic, msg, ts)
+bag.close()
+endsnippet
+
 # vim:ft=snippets:
