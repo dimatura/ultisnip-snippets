@@ -724,11 +724,6 @@ while True:
 		break
 endsnippet
 
-snippet with "with"
-with ${1:expr} as ${2:var}:
-	${3}
-endsnippet
-
 # New Class
 snippet cl "cl"
 class ${1:ClassName}(${2:object}):
@@ -845,12 +840,60 @@ parser.add_argument('$1', $2)
 args = parser.parse_args()
 endsnippet
 
-snippet click "click"
-@click.command()
-@click.argument('foo', type=click.Path(exists=True))
+snippet click "click example"
+@click.command(context_settings={'help_option_names':['-h', '--help']})
+@click.argument('foo', type=click.Path(exists=True), nargs=-1)
 @click.option('--bar', '-b', is_flag=True)
-def main(foo, bar):
-	click.echo(foo, bar)
+@click.option('--baz', nargs=2, type=float)
+@click.option('--bla', type=(unicode,int)) # two args but different type
+@click.option('--name', prompt='Your name please')
+@click.option('--upper', 'transform', flag_value='upper', default=True) # feature flags
+@click.option('--lower', 'transform', flag_value='lower')
+def main(foo, bar, baz, bla, name, transform):
+	click.echo(foo, bar, baz, bla, name, transform)
+endsnippet
+
+snippet clickg "click group example"
+def greeter(**kwargs):
+	output = '{0}, {1}!'.format(kwargs['greeting'], kwargs['name'])
+	if kwargs['caps']:
+		output = output.upper()
+	print(output)
+
+@click.group(context_settings={'help_option_names':['-h', '--help']})
+def greet():
+	pass
+
+@greet.command()
+@click.argument('name')
+@click.option('--greeting', default='Hello', help='word for greeting')
+@click.option('--caps', is_flag=True)
+# the application logic has been refactored into a single function
+def hello(**kwargs):
+	greeter(**kwargs)
+
+
+@greet.command()
+@click.argument('name')
+@click.option('--greeting', default='Goodbye')
+@click.option('--caps', is_flag=True)
+def goodbye(**kwargs):
+	greeter(**kwargs)
+
+if __name__ == '__main__':
+	greet()
+endsnippet
+
+snippet echo "click echo"
+click.echo(click.style('${1:}', fg='green', bold=False))
+endsnippet
+
+snippet pause "click pause"
+click.pause()
+endsnippet
+
+snippet click_launch
+click.edit(filename='${1:}')
 endsnippet
 
 snippet pr "pr"
@@ -975,6 +1018,5 @@ while not rospy.is_shutdown():
 	rospy.loginfo('done')
 	rospy.sleep(1.)
 endsnippet
-
 
 # vim:ft=snippets:
