@@ -1,0 +1,20 @@
+snippet typecaster "custom type caster"
+template <> struct type_caster<${1:CppType}> {
+	public:
+	PYBIND11_TYPE_CASTER($1, _("$1"));
+	bool load(handle src, bool) {
+		if (!is_ros_msg_type(src, "${1/::/\//g}")) { return false; }
+		value.x = (src.attr("x")).cast<double>();
+		return true;
+	}
+
+	static handle cast($1 cpp_msg, return_value_policy policy, handle parent) {
+		object mod = module::import("${1/::\w+//g}.msg._${1/\w+::*//}");
+		object MsgType = mod.attr("${1/\w+::*//}");
+		object msg = MsgType();
+		msg.attr("x") = pybind11::cast(pt.x);
+		msg.inc_ref();
+		return msg;
+	}
+};$0
+endsnippet
