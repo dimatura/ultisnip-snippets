@@ -1,0 +1,11 @@
+snippet touint8
+(${1:img}*255).clip(0, 255).astype('u1')
+endsnippet
+
+snippet cv2resize
+cv2.resize(${1:img}, (${2:width}, ${3:height}), None, 0, 0, ${4:cv2.INTER_LINEAR})
+endsnippet
+
+snippet cv2bgr2rgb
+cv2.cvtColor(${1:img}, cv2.COLOR_BGR2RGB)
+endsnippet

@@ -1,0 +1,24 @@
+snippet av_read
+container = av.open(str(${1:video_fname}))
+for frame in container.decode(video=0):
+	ix = frame.index
+	img = frame.to_image()
+	#img = frame.to_ndarray()
+endsnippet
+
+snippet av_write
+container = av.open(str(${1:video_fname}), 'w')
+stream = container.add_stream('mpeg4', '23.976')
+stream.bit_rate = 8000000
+stream.pix_fmt = 'yuv420p'
+stream.height = 480
+stream.width = 640
+
+# img is HxWx3 uint8 bgr frame
+frame = av.VideoFrame.from_ndarray(img, format='bgr24')
+# frame = av.VideoFrame.from_image(img)
+packet = stream.encode(frame)
+container.mux(packet)
+# ...
+container.close()
+endsnippet

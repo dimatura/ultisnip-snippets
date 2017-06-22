@@ -1,0 +1,36 @@
+snippet pil_draw_text "PIL draw text"
+fontpath = 'tom-thumb.pil'
+font = ImageFont.load(fontpath)
+draw = ImageDraw.Draw(img)
+draw.text(xypos, text, font=font, fill=color)
+endsnippet
+
+snippet pil_draw_box "PIL draw box"
+draw = ImageDraw.ImageDraw(img)
+draw.rectangle(bb, fill=None, outline=color)
+return img
+endsnippet
+
+snippet pil_border "PIL add border"
+ImageOps.expand(img, px, color)
+endsnippet
+
+snippet pil_vstack "PIL side by side"
+out = Image.new(img1.mode, (img1.size[0]+img2.size[0], img1.size[1]))
+out.paste(img1, (0, 0))
+out.paste(img2, (img1.size[0], 0))
+endsnippet
+
+snippet pil_hstack "PIL one on top of the other"
+out = Image.new(img1.mode, (img1.size[0], img1.size[1]+img2.size[1]))
+out.paste(img1, (0, 0))
+out.paste(img2, (0, img1.size[1]))
+endsnippet
+
+snippet pil_dstack "PIL depth merge"
+out = Image.merge('RGB', images)
+endsnippet
+
+snippet pil_blend 
+Image.blend(${1:img1}, ${2:img2}, ${3:0.5})
+endsnippet
