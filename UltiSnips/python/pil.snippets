@@ -1,3 +1,9 @@
+snippet pil_imp "import pil"
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageOps
+endsnippet
+
 snippet pil_draw_text "PIL draw text"
 fontpath = 'tom-thumb.pil'
 font = ImageFont.load(fontpath)
@@ -8,7 +14,13 @@ endsnippet
 snippet pil_draw_box "PIL draw box"
 draw = ImageDraw.ImageDraw(img)
 draw.rectangle(bb, fill=None, outline=color)
-return img
+del draw
+endsnippet
+
+snippet pil_draw_line "PIL draw cross"
+draw = ImageDraw.ImageDraw(img)
+draw.line((0, 0) + im.size, fill=128)
+draw.line((0, im.size[1], im.size[0], 0), fill=128)
 endsnippet
 
 snippet pil_border "PIL add border"

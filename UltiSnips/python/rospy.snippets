@@ -1,0 +1,35 @@
+snippet impros "import ros and friends"
+import rospy
+from sensor_msgs.msg import PointCloud2
+endsnippet
+
+snippet rosloop
+from sensor_msgs.msg import Image
+from sensor_msgs.msg import PointCloud2
+
+def cb(msg):
+	pass
+
+pub = rospy.Publisher('cloud', PointCloud2)
+sub = rospy.Subscriber('image_raw', Image, cb)
+
+rospy.init_node('node')
+while not rospy.is_shutdown():
+	msg.header = rospy.Header(stamp=rospy.Time.now(), frame_id='/world')
+	#msg = py_pc2.create_cloud_xyz32(header, voxel_xyz)
+	rospy.loginfo('publishing')
+	pub.publish(msg)
+	rospy.loginfo('done')
+	rospy.sleep(1.)
+endsnippet
+
+snippet rosbag
+import rosbag
+bag = rosbag.Bag('${0}')
+for topic, msg, ts in bag.read_messages(topics=['${1}']):
+	bag.write(topic, msg, ts)
+bag.close()
+endsnippet
+
+
+
