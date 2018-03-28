@@ -64,4 +64,167 @@ container.mux(packet)
 container.close()
 endsnippet
 
+snippet doctest1 "doctest example" b
+def pow2(x):
+	"""
+	>>> pow2(0)
+	1
+	>>> pow2(1)
+	2
+	>>> pow2(5)
+	32
+	"""
+	if (x==0): return 1
+	return 2*pow2(x-1)
+
+
+if __name__ == "__main__":
+	import doctest
+	doctest.testmod()
+endsnippet
+
+snippet dominate1 "dominate html" b
+import dominate
+from dominate.tags import *
+print(html(body(h1('hello world'))))
+
+doc = dominate.document(title='Dominate your HTML')
+
+with doc.head:
+	link(rel='stylesheet', href='style.css')
+	script(type='text/javascript', src='script.js')
+
+with doc:
+	with div(id='header').add(ol()):
+		for i in ['home', 'about', 'contact']:
+			li(a(i.title(), href='/%s.html' % i))
+
+	with div():
+		attr(cls='body')
+		p('Lorem ipsum..')
+
+lst = ul()
+for x in range(4):
+	lst += li('item #', x)
+endsnippet
+
+snippet etree "etree xml example read" b
+import xml.etree.ElementTree as ET
+
+#tree = ET.parse('manifest.xml')
+tree = ET.parse('package.xml')
+root = tree.getroot()
+
+desc = root.find('description')
+#print desc
+print desc.text
+author = root.find('author')
+print author.text
+endsnippet
+
+
+snippet filehash "file hash" b
+import hashlib
+BLOCKSIZE = 2**16
+md5 = hashlib.md5()
+with open(fname, 'rb') as f:
+	file_buffer = f.read(BLOCKSIZE)
+	while len(file_buffer) > 0:
+		md5.update(file_buffer)
+		file_buffer = f.read(BLOCKSIZE)
+hex = md5.hexdigest()
+endsnippet
+
+snippet imp_import "use imp to import dynamically" b
+import imp
+mod = imp.load_source('expt', 'somemodule.py')
+endsnippet
+
+snippet jinja_fs "jinja filesystemloader" b
+from jinja2 import Environment, Template, FileSystemLoader
+
+env = Environment(loader=FileSystemLoader('.'))
+tpl = env.get_template('template.html')
+navigation = [{'href': 'http://bla', 'caption': 'fooooo'}]
+print tpl.render(a_variable='hello', navigation=navigation)
+endsnippet
+
+snippet pickleshare "pickleshare example" b
+import pickleshare
+
+db = pickleshare.PickleShareDB('test1.pkls')
+db['baz'] = 'dffadf'
+db['foo/bar'] = [1, 2] # creates directory foo
+for k in db.keys('foo/*'):
+	print k
+endsnippet
+
+snippet scandir "scandir example" b
+from scandir import scandir, walk
+for d in scandir(path='/mnt/wdblack/derived_data/superparsing_barcelona'):
+	print d, d.path, d.name, d.is_dir()
+
+leaf_dirs = []
+for root, dirs, files in scandir.walk(base_dir):
+	# print('root', root)
+	if 'metadata' in dirs:
+		dirs.remove('metadata')
+	if len(dirs)==0:
+		leaf_dirs.append(root)
+endsnippet
+
+snippet tinydb "tinydb example" b
+from tinydb import TinyDB, where, Query
+
+db = TinyDB('db.json')
+db.insert({'foo': 1, 'bar': 'dfdaf'})
+db.insert({'foo': 28, 'bar': 'hhoo'})
+
+print db.all()
+
+q = Query()
+res = db.search(q.foo == 28)
+print res
+print
+
+q = Query()
+res = db.search(q.bar == 'dfdaf')
+print res
+
+mytable = db.table('mytable')
+mytable.insert({'wee': 'blorp'})
+print mytable.all()
+endsnippet
+
+snippet traitles "traitlets example" b
+import traitlets as tr
+
+class Foo(tr.HasTraits):
+	mapping = tr.Dict({'foo':'bar'})
+	s1 = tr.Unicode()
+	s2 = tr.CUnicode()
+	f = tr.CFloat()
+
+
+foo = Foo()
+foo.s2 = [1,2,3]
+foo.f = 4.0
+foo.f = 2
+
+foo2 = Foo(s1='baz')
+endsnippet
+
+snippet yattag "yattag example" b
+from yattag import Doc
+doc, tag, text = Doc().tagtext()
+
+with tag('html'):
+	with tag('body'):
+		with tag('p', id='main'):
+			text('some text')
+		with tag('a', href='/some-url'):
+			text('some link')
+result = doc.getvalue()
+endsnippet
+
 # vim:ft=snippets:

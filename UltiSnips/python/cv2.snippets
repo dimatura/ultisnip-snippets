@@ -27,4 +27,19 @@ buffer = np.frombuffer(strbuf, dtype='u1')
 image = cv2.imdecode(buffer, cv2.IMREAD_COLOR)
 endsnippet
 
+snippet cv2drawstr "draw string" b
+cv2.putText(img, s, (x+1, y+1), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 0), thickness = 2, lineType=cv2.LINE_AA)
+cv2.putText(img, s, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), lineType=cv2.LINE_AA)
+endsnippet
+
+snippet cv2drawrect "draw rectangle" b
+cv2.rectangle(vis, (x0, y0), (x1, y1), (0, 255, 0), 2)
+endsnippet
+
+snippet cv2keypoints "draw keypoints" b
+color = (0, 255, 255)
+x, y = keypoint.pt
+cv2.circle(vis, (int(x), int(y)), 2, color)
+endsnippet
+
 # vim:ft=snippets:

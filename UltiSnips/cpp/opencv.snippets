@@ -3,64 +3,64 @@ snippet cv "cv::"
 cv::
 endsnippet
 
-snippet cvm "cvm"
+snippet cvm "cv::Mat"
 cv::Mat $0
 endsnippet
 
-snippet cvm_ "cvm_"
+snippet cvm_ "cv::Mat_"
 cv::Mat_<${1}> $0
 endsnippet
 
-snippet cv_imshow
+snippet cv_imshow "opencv imshow"
 cv::imshow("win", ${1:img});
 char c = cv::waitKey();
 endsnippet
 
-snippet cv_imshowf "show floating point image"
+snippet cv_imshowf "opencv show floating point image"
 cv::normalize(${1:img}, imgn, 0., 1., cv::NORM_MINMAX);
 cv::imshow("win", imgn);
 char c = cv::waitKey(0);
 endsnippet
 
-snippet cv_imread "read image"
+snippet cv_imread "opencv read image"
 cv::Mat img = cv::imread(${1:filename}, CV_LOAD_IMAGE_GRAYSCALE);$0
 endsnippet
 
-snippet cv_imwrite "write image"
+snippet cv_imwrite "opencv write image"
 cv::imwrite(${1:filename}, ${2:mat});$0
 endsnippet
 
-snippet cv_tofloat "convert uint8_t to float"
+snippet cv_tofloat "opencv convert uint8_t to float"
 cv::Mat dst;
 cv::Mat src.convertTo(dst, CV_32FC1, 1./255.);
 endsnippet
 
-snippet cv_touint8 "convert float to uint8"
+snippet cv_touint8 "opencv convert float to uint8"
 cv::Mat dst;
 cv::Mat src.convertTo(dst, CV_8UC1, 255);
 endsnippet
 
-snippet cv_rgb2gray
+snippet cv_rgb2gray "opencv rgb to gray"
 cv::cvtColor(${1:src}, ${2:dst}, CV_RGB2GRAY);
 endsnippet
 
-snippet cv_resize
+snippet cv_resize "opencv resize"
 cv::resize(${1:src}, ${2:dst}, cv::Size(${3:width}, ${4:height})); 
 endsnippet
 
-snippet cv_constiter "iterate through all pixels"
+snippet cv_constiter "opencv iterate through all pixels"
 for (cv::MatConstIterator_<${1:}> itr = ${2:mat}.begin(), itr_end = $2.end(); itr != itr_end; ++itr) {
 	$3
 }
-endsnippet 
+endsnippet
 
-snippet cv_iter "iterate through all pixels"
+snippet cv_iter "opencv iterate through all pixels"
 for (cv::MatIterator_<${1:}> itr = ${2:mat}.begin(), itr_end = $2.end(); itr != itr_end; ++itr) {
 	$3
 }
-endsnippet 
+endsnippet
 
-snippet cv_itert "iterate through all pixels with begin end T"
+snippet cv_itert "opencv iterate through all pixels with begin end T"
 for (cv::MatIterator_<${1:}> itr = ${2:mat}.begin<$1>(), itr_end = $2.end<$2>(); itr != itr_end; ++itr) {
 	$3
 }

@@ -43,6 +43,26 @@ snippet pil_dstack "PIL depth merge" b
 out = Image.merge('RGB', images)
 endsnippet
 
-snippet pil_blend 
+snippet pil_blend "blend two images" b
 Image.blend(${1:img1}, ${2:img2}, ${3:0.5})
+endsnippet
+
+snippet pil_thumbnail "nice thumbnail" b
+from PIL import Image, ImageChops, ImageOps
+
+def makeThumb(f_in, f_out, size=(80,80), pad=False):
+
+	image = Image.open(f_in)
+	image.thumbnail(size, Image.ANTIALIAS)
+	image_size = image.size
+
+	if pad:
+		thumb = image.crop( (0, 0, size[0], size[1]) )
+		offset_x = max( (size[0] - image_size[0]) / 2, 0 )
+		offset_y = max( (size[1] - image_size[1]) / 2, 0 )
+		thumb = ImageChops.offset(thumb, offset_x, offset_y)
+	else:
+		thumb = ImageOps.fit(image, size, Image.ANTIALIAS, (0.5, 0.5))
+
+	thumb.save(f_out)
 endsnippet

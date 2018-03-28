@@ -1,5 +1,5 @@
 # boost
-snippet b "b"
+snippet b "boost::"
 boost::
 endsnippet
 
@@ -8,12 +8,12 @@ boost::
 endsnippet
 
 # boost format
-snippet bformat "bformat"
+snippet bformat "boost format"
 (boost::format("$1")%$2)$0
 endsnippet
 
 # boost foreach
-snippet bfor "bfor"
+snippet bfor "boost for each" b
 BOOST_FOREACH(${1}, ${2}) {
 	${3}
 }$0
@@ -36,14 +36,14 @@ snippet pdef "boost python def"
 .def("${1:name}", ${2:pointer}, ${3:help})$0
 endsnippet
 
-snippet pmodule "boost python module"
+snippet pmodule "boost python module" b
 BOOST_PYTHON_MODULE(${1:name}) {
 	using namespace boost::python;
 	${2:}
 }
 endsnippet
 
-snippet pclass "boost python class"
+snippet pclass "boost python class" b
 class_<${1:class}>( ${2:init} )
 	${3}
 	;$0

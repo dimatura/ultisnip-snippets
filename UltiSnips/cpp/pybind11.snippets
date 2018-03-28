@@ -1,4 +1,4 @@
-snippet typecaster "custom type caster"
+snippet typecaster "pybind11 custom type caster" b
 template <> struct type_caster<${1:CppType}> {
 	public:
 	PYBIND11_TYPE_CASTER($1, _("$1"));
