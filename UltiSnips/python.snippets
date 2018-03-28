@@ -761,7 +761,6 @@ def ${1:foo}():
 $1 = property(**$1())
 endsnippet
 
-
 snippet el "el"
 else:
 	${1}
@@ -834,175 +833,70 @@ for option, argument in opts:
 		verbose = argument
 endsnippet
 
-snippet argparse "argparse"
-parser = argparse.ArgumentParser()
-parser.add_argument('$1', $2) 
-args = parser.parse_args()
-endsnippet
-
-snippet click "click example"
-@click.command(context_settings={'help_option_names':['-h', '--help']})
-@click.argument('foo', type=click.Path(exists=True), nargs=-1)
-@click.option('--bar', '-b', is_flag=True)
-@click.option('--baz', nargs=2, type=float)
-@click.option('--bla', type=(unicode,int)) # two args but different type
-@click.option('--name', prompt='Your name please')
-@click.option('--upper', 'transform', flag_value='upper', default=True) # feature flags
-@click.option('--lower', 'transform', flag_value='lower')
-def main(foo, bar, baz, bla, name, transform):
-	click.echo(foo, bar, baz, bla, name, transform)
-endsnippet
-
-snippet clickg "click group example"
-def greeter(**kwargs):
-	output = '{0}, {1}!'.format(kwargs['greeting'], kwargs['name'])
-	if kwargs['caps']:
-		output = output.upper()
-	print(output)
-
-@click.group(context_settings={'help_option_names':['-h', '--help']})
-def greet():
-	pass
-
-@greet.command()
-@click.argument('name')
-@click.option('--greeting', default='Hello', help='word for greeting')
-@click.option('--caps', is_flag=True)
-# the application logic has been refactored into a single function
-def hello(**kwargs):
-	greeter(**kwargs)
-
-
-@greet.command()
-@click.argument('name')
-@click.option('--greeting', default='Goodbye')
-@click.option('--caps', is_flag=True)
-def goodbye(**kwargs):
-	greeter(**kwargs)
-
-if __name__ == '__main__':
-	greet()
-endsnippet
-
-snippet echo "click echo"
-click.echo(click.style('${1:}', fg='green', bold=False))
-endsnippet
-
-snippet pause "click pause"
-click.pause()
-endsnippet
-
-snippet click_launch
-click.edit(filename='${1:}')
-endsnippet
-
-snippet pr "pr"
+snippet pr "print"
 print(${1})
 endsnippet
 
-snippet ret "ret"
+snippet ret "return"
 return
 endsnippet
 
-snippet opj "opj"
+snippet opj "os.path.join"
 os.path.join(
 endsnippet
 
-snippet ope "ope"
+snippet ope "os.path.exists"
 os.path.exists(
 endsnippet
 
-snippet opse "opse"
+snippet opse "os.path.splitext"
 os.path.splitext(
 endsnippet
 
-snippet op "op"
+snippet op "os.path"
 os.path.
 endsnippet
 
-snippet dbg "dbg"
-print("${1:} = %r"%(${2:$1}))${3}
+snippet dbg "debug"
+print("${1:} = {}".format(${2:$1}))${3}
 endsnippet
 
-# logging
-# glog = get log
-snippet glog "get logger"
-import logging
-log = logging.getLogger(${1:__name__})
-endsnippet
-
-snippet le "log error"
-log.error(${1:msg})
-endsnippet
-
-# conflict with lambda=ld, therefor we change into Logger.debu
-snippet lg "log debug"
-log.debug(${1:msg})
-endsnippet
-
-snippet lw "log warn"
-log.warning(${1:msg})
-endsnippet
-
-snippet lc "log critical"
-log.critical(${1:msg})
-endsnippet
-
-snippet li "log info"
-log.info(${1:msg})
-endsnippet
-
-snippet logging "basic configure logging"
-import logging
-logging.basicConfig(format='%(asctime)s|%(name)s|%(levelname)s: %(message)s', level=logging.INFO)
-endsnippet
-
-snippet logging2 "human+computer configure logging"
-import logging
-root_logger = logging.getLogger()
-root_logger.setLevel(${1:logging.INFO})
-human_log_fmt = logging.Formatter('%(asctime)s|%(name)s|%(levelname)s: %(message)s')
-ch = logging.StreamHandler(sys.stdout)
-ch.setFormatter(human_log_fmt)
-root_logger.addHandler(ch)
-
-computer_log_fmt = logging.Formatter('%(created)s|%(name)s|%(pathname)s|%(lineno)d|%(levelname)s|%(message)s')
-fh = logging.FileHandler(${2:log_fname})
-fh.setFormatter(computer_log_fmt)
-root_logger.addHandler(fh)
-endsnippet
-
-snippet impnp "import numpy"
+snippet impnp "import numpy" b
 import numpy as np
 endsnippet
 
-snippet imppd "import pandas"
+snippet imppd "import pandas" b
 import pandas as pd
 endsnippet
 
-snippet imppl "import matplotlib"
+snippet imppl "import matplotlib" b
 import matplotlib as mpl
 import matplotlib.pyplot as pl
 endsnippet
 
-snippet impcv2 "import cv2"
+snippet impcv2 "import cv2" b
 import cv2
 endsnippet
 
-snippet imppil "import pil"
+snippet imppil "import pil" b
 from PIL import Image
 endsnippet
 
-snippet impspath "import spath.py"
+snippet impspath "import spath.py" b
 from spath import Path
 endsnippet
 
-snippet impod "import ordered dict"
+snippet impod "import ordered dict" b
 from collections import OrderedDict
 endsnippet
 
-snippet futureprint
+snippet futureprint "import future print" b
 from __future__ import print_function
+endsnippet
+
+snippet doctestmod "doctest module" b
+import doctest
+doctest.testmod(verbose=True)
 endsnippet
 
 # vim:ft=snippets:

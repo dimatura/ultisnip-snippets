@@ -1,11 +1,30 @@
-snippet touint8
+snippet touint8 "cv2 float to uint8" b
 (${1:img}*255).clip(0, 255).astype('u1')
 endsnippet
 
-snippet cv2resize
+snippet cv2resize "cv2 resize image" b
 cv2.resize(${1:img}, (${2:width}, ${3:height}), None, 0, 0, ${4:cv2.INTER_LINEAR})
 endsnippet
 
-snippet cv2bgr2rgb
+snippet cv2bgr2rgb "cv2 bgr to rgb" b
 cv2.cvtColor(${1:img}, cv2.COLOR_BGR2RGB)
 endsnippet
+
+snippet cv2translate "translate image" b
+M = np.float32([[1, 0, x], [0, 1, y]])
+shifted = cv2.warpAffine(image, M, (image.shape[1], image.shape[0]))
+endsnippet
+
+snippet cv2rotate "rotate image" b
+(h, w) = image.shape[:2]
+center = (w // 2, h // 2)
+M = cv2.getRotationMatrix2D(center, angle, scale)
+rotated = cv2.warpAffine(image, M, (w, h))
+endsnippet
+
+snippet cv2imdecode "decode image" b
+buffer = np.frombuffer(strbuf, dtype='u1')
+image = cv2.imdecode(buffer, cv2.IMREAD_COLOR)
+endsnippet
+
+# vim:ft=snippets:

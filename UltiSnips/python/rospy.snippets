@@ -1,9 +1,9 @@
-snippet impros "import ros and friends"
+snippet impros "import rospy and a msg" b
 import rospy
 from sensor_msgs.msg import PointCloud2
 endsnippet
 
-snippet rosloop
+snippet rosloop "simple ros loop" b
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import PointCloud2
 
@@ -23,7 +23,7 @@ while not rospy.is_shutdown():
 	rospy.sleep(1.)
 endsnippet
 
-snippet rosbag
+snippet rosbag "open rosbag" b
 import rosbag
 bag = rosbag.Bag('${0}')
 for topic, msg, ts in bag.read_messages(topics=['${1}']):

@@ -1,45 +1,45 @@
-snippet pil_imp "import pil"
+snippet pil_imp "import pil" b
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
 endsnippet
 
-snippet pil_draw_text "PIL draw text"
+snippet pil_draw_text "PIL draw text" b
 fontpath = 'tom-thumb.pil'
 font = ImageFont.load(fontpath)
 draw = ImageDraw.Draw(img)
 draw.text(xypos, text, font=font, fill=color)
 endsnippet
 
-snippet pil_draw_box "PIL draw box"
+snippet pil_draw_box "PIL draw box" b
 draw = ImageDraw.ImageDraw(img)
 draw.rectangle(bb, fill=None, outline=color)
 del draw
 endsnippet
 
-snippet pil_draw_line "PIL draw cross"
+snippet pil_draw_line "PIL draw cross" b
 draw = ImageDraw.ImageDraw(img)
 draw.line((0, 0) + im.size, fill=128)
 draw.line((0, im.size[1], im.size[0], 0), fill=128)
 endsnippet
 
-snippet pil_border "PIL add border"
+snippet pil_border "PIL add border" b
 ImageOps.expand(img, px, color)
 endsnippet
 
-snippet pil_vstack "PIL side by side"
+snippet pil_vstack "PIL side by side" b
 out = Image.new(img1.mode, (img1.size[0]+img2.size[0], img1.size[1]))
 out.paste(img1, (0, 0))
 out.paste(img2, (img1.size[0], 0))
 endsnippet
 
-snippet pil_hstack "PIL one on top of the other"
+snippet pil_hstack "PIL one on top of the other" b
 out = Image.new(img1.mode, (img1.size[0], img1.size[1]+img2.size[1]))
 out.paste(img1, (0, 0))
 out.paste(img2, (0, img1.size[1]))
 endsnippet
 
-snippet pil_dstack "PIL depth merge"
+snippet pil_dstack "PIL depth merge" b
 out = Image.merge('RGB', images)
 endsnippet
 
