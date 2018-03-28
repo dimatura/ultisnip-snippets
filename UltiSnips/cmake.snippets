@@ -1,4 +1,3 @@
-
 snippet cmake "cmake templates" b
 cmake_minimum_required(version 2.6)
 project(${1:ProjectName})
@@ -169,4 +168,35 @@ endsnippet
 
 snippet lib_cv "link cv"
 ${OpenCV_LIBRARIES}
+endsnippet
+
+snippet catkin_simple "catkin_simple example" b
+cmake_minimum_required(VERSION 2.8.3)
+project(foo)
+
+find_package(catkin_simple REQUIRED)
+
+# gathers build_depends, does find_package on each
+# packages that are found are added to find_package(catkin REQUIRED ...)
+# also addes include's
+# also discovers msg, srv, action, and dynamic_reconfigure
+catkin_simple()
+# fails if find_package fails on REQUIRED deps
+# catkin_simple(ALL_DEPS_REQUIRED)
+
+# add_library and target_link_libraries
+cs_add_library(my_lib src/my_lib.cpp)
+
+# similar to add library
+cs_add_executable(my_exec src/main.cpp)
+target_link_libraries(my_exec my_lib)
+
+# install stuff created with cs_* commands
+cs_install()
+
+# other targets, nstalls to ${prefix}/lib/${pkg_name}
+cs_install_scripts(scripts/my_script.py)
+
+# caktin_package()
+cs_export()
 endsnippet

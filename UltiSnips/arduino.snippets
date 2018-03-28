@@ -1,0 +1,228 @@
+extends cpp
+
+snippet serialevent "arduino serial event example" b
+String inputString = ""; // a String to hold incoming data
+boolean stringComplete = false; // whether the string is complete
+
+void setup() {
+	// initialize serial:
+	Serial.begin(9600);
+	// reserve 200 bytes for the inputString:
+	inputString.reserve(200);
+}
+
+/*
+SerialEvent occurs whenever a new data comes in the hardware serial RX. This
+routine is run between each time loop() runs, so using delay inside loop can
+delay response. Multiple bytes of data may be available.
+*/
+void serialEvent() {
+	while (Serial.available()) {
+		// get the new byte:
+		char inChar = (char)Serial.read();
+		// add it to the inputString:
+		inputString += inChar;
+		// if the incoming character is a newline, set a flag so the main loop can
+		// do something about it:
+		if (inChar == '\n') {
+			stringComplete = true;
+		}
+	}
+}
+
+void loop() {
+	// print the string when a newline arrives:
+	if (stringComplete) {
+		Serial.println(inputString);
+		// clear the string:
+		inputString = "";
+		stringComplete = false;
+	}
+}
+endsnippet
+
+snippet setup "setup()"
+void setup() {
+	Serial.begin(115200);
+	${2}
+}
+endsnippet
+
+snippet loop "loop()"
+void loop() {
+	${1}
+}
+endsnippet
+
+snippet dr "digitalRead"
+	digitalRead(${1:13});
+endsnippet
+
+snippet ar "analogRead"
+	analogRead(${1:13});
+endsnippet
+
+snippet pmi "pinMode - Input"
+	pinMode(${1:13}, ${2:INPUT});
+endsnippet
+
+snippet pmo "pinMode - Output"
+	pinMode(${1:13}, ${2:OUTPUT});
+endsnippet
+
+snippet map "map"
+	map(${1:input}, ${2:in_lo}, ${3:in_hi}, ${4:out_lo}, ${5:out_hi});
+endsnippet
+
+snippet sr "serial read"
+	Serial.read();
+endsnippet
+
+snippet sp "serial print"
+	Serial.print(${1:"hello"});
+endsnippet
+
+snippet spl "serial println"
+	Serial.println((${1:"hello"});
+endsnippet
+
+snippet pinout
+pinMode(${1}, OUTPUT);
+endsnippet
+
+# pinMode INPUT
+snippet pinin
+pinMode(${1}, INPUT);
+endsnippet
+
+snippet dwhi "digitalWrite HIGH"
+digitalWrite(${1}, HIGH);
+endsnippet
+
+snippet dwlo "digitalWrite LOW"
+digitalWrite(${1}, LOW);
+endsnippet
+
+snippet aw "analogWrite"
+analogWrite(${1});
+endsnippet
+
+snippet dl "delay ms"
+delay(${1});
+endsnippet
+
+snippet ml "current milliseconds"
+millis();
+endsnippet
+
+snippet serial_examples "serial examples" b
+Serial.write(byte); # DEC is default
+Serial.print(byte, HEX);
+Serial.print(byte, OCT);
+Serial.println(byte, BIN);
+endsnippet
+
+snippet serial_loop "serial loop example" b
+void loop() {
+	byte brightness;
+	// check if data has been sent from the computer:
+	if (Serial.available()) {
+		// read the most recent byte (which will be from 0 to 255):
+		brightness = Serial.read();
+		// set the brightness of the LED:
+		analogWrite(ledPin, brightness);
+	}
+}
+endsnippet
+
+snippet serial_loop2 "serial loop example 2" b
+void loop() {
+	// if there's any serial available, read it:
+	while (Serial.available() > 0) {
+		// look for the next valid integer in the incoming serial stream:
+		int red = Serial.parseInt();
+		// do it again:
+		int green = Serial.parseInt();
+		// do it again:
+		int blue = Serial.parseInt();
+
+		// look for the newline. That's the end of your sentence:
+		if (Serial.read() == '\n') {
+			// constrain the values to 0 - 255 and invert
+			// if you're using a common-cathode LED, just use "constrain(color, 0, 255);"
+			red = 255 - constrain(red, 0, 255);
+			green = 255 - constrain(green, 0, 255);
+			blue = 255 - constrain(blue, 0, 255);
+
+			// fade the red, green, and blue legs of the LED:
+			analogWrite(redPin, red);
+			analogWrite(greenPin, green);
+			analogWrite(bluePin, blue);
+
+			// print the three numbers in one string as hexadecimal:
+			Serial.print(red, HEX);
+			Serial.print(green, HEX);
+			Serial.println(blue, HEX);
+		}
+	}
+}
+endsnippet
+
+snippet char_analysis "character analysis" b
+int thisChar = Serial.read();
+
+// say what was sent:
+Serial.print("You sent me: \'");
+Serial.write(thisChar);
+Serial.print("\'ASCII Value: ");
+Serial.println(thisChar);
+
+// analyze what was sent:
+if (isAlphaNumeric(thisChar)) {
+	Serial.println("it's alphanumeric");
+}
+if (isAlpha(thisChar)) {
+	Serial.println("it's alphabetic");
+}
+if (isAscii(thisChar)) {
+	Serial.println("it's ASCII");
+}
+if (isWhitespace(thisChar)) {
+	Serial.println("it's whitespace");
+}
+if (isControl(thisChar)) {
+	Serial.println("it's a control character");
+}
+if (isDigit(thisChar)) {
+	Serial.println("it's a numeric digit");
+}
+if (isGraph(thisChar)) {
+	Serial.println("it's a printable character that's not whitespace");
+}
+if (isLowerCase(thisChar)) {
+	Serial.println("it's lower case");
+}
+if (isPrintable(thisChar)) {
+	Serial.println("it's printable");
+}
+if (isPunct(thisChar)) {
+	Serial.println("it's punctuation");
+}
+if (isSpace(thisChar)) {
+	Serial.println("it's a space character");
+}
+if (isUpperCase(thisChar)) {
+	Serial.println("it's upper case");
+}
+if (isHexadecimalDigit(thisChar)) {
+	Serial.println("it's a valid hexadecimaldigit (i.e. 0 - 9, a - F, or A - F)");
+}
+
+// add some space and ask for another byte:
+Serial.println();
+Serial.println("Give me another byte:");
+Serial.println();
+endsnippet
+
+
+# vim: set ft=snippets:

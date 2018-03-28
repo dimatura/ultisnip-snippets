@@ -1,0 +1,69 @@
+snippet minimal_setup "Minimal setup.py" b
+from setuptools import setup, find_packages
+
+setup(
+	name = 'MyPackageName',
+	version = '1.0.0',
+	url = 'https://github.com/mypackage.git',
+	author = 'Author Name',
+	author_email = 'author@gmail.com’,
+	description = 'Description of my package',
+	packages = find_packages(),
+	install_requires = ['numpy >= 1.11.1', 'matplotlib >= 1.5.1'],
+)
+endsnippet
+
+snippet cookiecutter_setup "cookiecutter setuptools" b
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""The setup script."""
+
+from setuptools import setup, find_packages
+
+with open('README.rst') as readme_file:
+	readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+	history = history_file.read()
+
+requirements = ['Click>=6.0', ]
+
+setup_requirements = ['pytest-runner', ]
+
+test_requirements = ['pytest', ]
+
+setup(
+	author="Daniel Maturana",
+	author_email='dimatura@cmu.edu',
+	classifiers=[
+		'Development Status :: 2 - Pre-Alpha',
+		'Intended Audience :: Developers',
+		'License :: OSI Approved :: BSD License',
+		'Natural Language :: English',
+		"Programming Language :: Python :: 2",
+		'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 3',
+		'Programming Language :: Python :: 3.4',
+		'Programming Language :: Python :: 3.5',
+		'Programming Language :: Python :: 3.6',
+	],
+	description="Short description.",
+	entry_points={
+		'console_scripts': [ 'myproject=myproject.cli:main', ],
+	},
+	install_requires=requirements,
+	license="BSD license",
+	long_description=readme + '\n\n' + history,
+	include_package_data=True,
+	keywords='myproject',
+	name='myproject',
+	packages=find_packages(include=['myproject']),
+	setup_requires=setup_requirements,
+	test_suite='tests',
+	tests_require=test_requirements,
+	url='https://github.com/dimatura/myproject',
+	version='0.1.0',
+	zip_safe=False,
+)
+endsnippet
