@@ -1,0 +1,44 @@
+snippet argparse1 "argparse example" b
+parser = argparse.ArgumentParser(description='Label images')
+# variable args
+parser.add_argument('images', nargs='*', type=str, help="Label images")
+parser.add_argument('base_dir', default=BASE_DIR, type=str, help="bla")
+parser.add_argument('--best-only', '-b', action='store_true', help="bla")
+
+# one arg and then various args
+parser.add_argument('output', metavar='OUT',type=str,nargs=1,help='input')
+parser.add_argument('files', metavar='FILES',type=str,nargs='+',help='files to process')
+
+args = parser.parse_args()
+endsnippet
+
+
+snippet argparse2 "argparse with subcommands" b
+parser = argparse.ArgumentParser()
+subparsers = parser.add_subparsers()
+
+train_parser = subparsers.add_parser('train')
+train_parser.add_argument('--weights',
+                          type=str,
+                          help='weights for initialization')
+train_parser.add_argument('-r', '--resume',
+                          action='store_true',
+                          help='resume from checkpoint')
+train_parser.add_argument('-d', '--debug',
+                          action='store_true',
+                          help='activate debugging')
+train_parser.add_argument('--data-dir',
+                          type=str,
+                          help='data base directory')
+train_parser.add_argument('--out-dir',
+                          type=str,
+                          help='output base directory')
+train_parser.add_argument('-j', '--workers',
+                          type=int,
+                          default=1,
+                          help='number of workers')
+train_parser.set_defaults(func=self.train)
+
+args = parser.parse_args()
+args.func(args)
+endsnippet

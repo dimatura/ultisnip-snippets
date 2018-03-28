@@ -1,0 +1,67 @@
+snippet dataset "dataset database lib" b
+import dataset
+
+# dialect://user:password@host/dbname
+db = dataset.connect('sqlite:///mydatabase.db')
+table = db['person']
+print db.tables
+table.insert( dict(name='John Doe', age=46) )
+print table.columns
+table.insert( dict(name='Jane Doe', age=56, gender='f') )
+# second argument is filter columns
+table.update( dict(name='John Doe', age=47), ['name'])
+people = db['person'].all()
+for p in people:
+	print p # this is a dict-like
+
+p2set = table.find(name='John Doe')
+for p in p2set:
+	print p
+# also distinct()
+# db.query() for pure sql
+result = db['person'].all()
+
+snippet pyserial "pyserial example" b
+import serial
+# timeout=None, waits forever
+# timeout=0 nonblocking
+# timeout=x x seconds
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=0)
+print(ser.is_open)
+ser.reset_input_buffer()
+ser.reset_output_buffer()
+ser.write(b'hello')
+print(ser.out_waiting)
+byte = ser.read()
+bytes = ser.read(10)
+print(ser.in_waiting)
+ln = ser.readline()
+ser.close()
+endsnippet
+
+snippet av_read "pyav read frame" b
+container = av.open(str(${1:video_fname}))
+for frame in container.decode(video=0):
+	ix = frame.index
+	img = frame.to_image()
+	#img = frame.to_ndarray()
+endsnippet
+
+snippet av_write "pyav write frame" b
+container = av.open(str(${1:video_fname}), 'w')
+stream = container.add_stream('mpeg4', '23.976')
+stream.bit_rate = 8000000
+stream.pix_fmt = 'yuv420p'
+stream.height = 480
+stream.width = 640
+
+# img is HxWx3 uint8 bgr frame
+frame = av.VideoFrame.from_ndarray(img, format='bgr24')
+# frame = av.VideoFrame.from_image(img)
+packet = stream.encode(frame)
+container.mux(packet)
+# ...
+container.close()
+endsnippet
+
+# vim:ft=snippets:

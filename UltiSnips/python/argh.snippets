@@ -1,0 +1,51 @@
+
+snippet argh1 "argh example with subcommands" b
+import argh
+
+class App(object):
+
+    def train(self, arg, save=False):
+        print 'train', arg, 'save', save
+
+    def valid(self):
+        print 'valid'
+
+    def cli(self):
+	parser = argh.ArghParser()
+	parser.add_commands([self.train, self.valid])
+	parser.dispatch()
+
+
+app = App()
+app.cli()
+endsnippet
+
+
+snippet argh2 "argh example with subcommand objects" b
+import sys
+
+import argparse
+import argh
+
+class Command(object):
+    def __init__(self, app):
+        self.app = app
+
+    def run(self, *args, **kwargs):
+        raise NotImplementedError
+
+
+class TrainCommand(Command):
+    def run(self, foo, bar=28):
+        print('train', self.app, foo, bar)
+
+class App(object):
+    def cli(self):
+        train_cmd = TrainCommand(self)
+        parser = argh.ArghParser()
+        parser.add_commands([train_cmd.run])
+        parser.dispatch()
+
+app = App()
+app.cli()
+endsnippet

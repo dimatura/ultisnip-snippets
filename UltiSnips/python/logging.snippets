@@ -1,0 +1,48 @@
+# glog = get log
+snippet glog "get logger"
+import logging
+log = logging.getLogger(${1:__name__})
+endsnippet
+
+snippet le "log error"
+log.error(${1:msg})
+endsnippet
+
+# conflict with lambda=ld, therefor we change into Logger.debu
+snippet lg "log debug"
+log.debug(${1:msg})
+endsnippet
+
+snippet lw "log warn"
+log.warning(${1:msg})
+endsnippet
+
+snippet lc "log critical"
+log.critical(${1:msg})
+endsnippet
+
+snippet li "log info"
+log.info(${1:msg})
+endsnippet
+
+snippet logging "basic configure logging"
+import logging
+logging.basicConfig(format='%(asctime)s|%(name)s|%(levelname)s: %(message)s', level=logging.INFO)
+endsnippet
+
+snippet logging2 "human+computer configure logging"
+import logging
+root_logger = logging.getLogger()
+root_logger.setLevel(${1:logging.INFO})
+human_log_fmt = logging.Formatter('%(asctime)s|%(name)s|%(levelname)s: %(message)s')
+ch = logging.StreamHandler(sys.stdout)
+ch.setFormatter(human_log_fmt)
+root_logger.addHandler(ch)
+
+computer_log_fmt = logging.Formatter('%(created)s|%(name)s|%(pathname)s|%(lineno)d|%(levelname)s|%(message)s')
+fh = logging.FileHandler(${2:log_fname})
+fh.setFormatter(computer_log_fmt)
+root_logger.addHandler(fh)
+endsnippet
+
+# vim:ft=snippets:

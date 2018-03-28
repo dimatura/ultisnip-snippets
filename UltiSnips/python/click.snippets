@@ -1,0 +1,103 @@
+snippet click "click example" b
+@click.command(context_settings={'help_option_names':['-h', '--help']})
+@click.argument('foo', type=click.Path(exists=True), nargs=-1)
+@click.option('--bar', '-b', is_flag=True)
+@click.option('--baz', nargs=2, type=float)
+@click.option('--bla', type=(unicode,int)) # two args but different type
+@click.option('--name', prompt='Your name please')
+@click.option('--upper', 'transform', flag_value='upper', default=True) # feature flags
+@click.option('--lower', 'transform', flag_value='lower')
+@click.option('--hash-type', type=click.Choice(['md5', 'sha1']))
+def main(foo, bar, baz, bla, name, transform):
+	click.echo(foo, bar, baz, bla, name, transform)
+endsnippet
+
+snippet click_feature "click feature flags" b
+@click.command()
+@click.option('--upper', 'transformation', flag_value='upper', default=True)
+@click.option('--lower', 'transformation', flag_value='lower')
+def info(transformation):
+	click.echo('transformation:  %s'%transformation) # type is string
+	click.echo(getattr(sys.platform, transformation)())
+
+if __name__ == "__main__":
+	info()
+endsnippet
+
+snippet clickg "click group example" b
+def greeter(**kwargs):
+	output = '{0}, {1}!'.format(kwargs['greeting'], kwargs['name'])
+	if kwargs['caps']:
+		output = output.upper()
+	print(output)
+
+@click.group(context_settings={'help_option_names':['-h', '--help']})
+def greet():
+	pass
+
+@greet.command()
+@click.argument('name')
+@click.option('--greeting', default='Hello', help='word for greeting')
+@click.option('--caps', is_flag=True)
+# the application logic has been refactored into a single function
+def hello(**kwargs):
+	greeter(**kwargs)
+
+
+@greet.command()
+@click.argument('name')
+@click.option('--greeting', default='Goodbye')
+@click.option('--caps', is_flag=True)
+def goodbye(**kwargs):
+	greeter(**kwargs)
+
+if __name__ == '__main__':
+	greet()
+endsnippet
+
+snippet echo "click echo" b
+click.echo(click.style('${1:}', fg='green', bold=False))
+endsnippet
+
+snippet pause "click pause" b
+click.pause()
+endsnippet
+
+snippet click_edit "click launch editor" b
+click.edit(filename='${1:}')
+endsnippet
+
+snippet click_nargs "click variable args" b
+# note ordering of arguments doesn't matter,
+# but name does
+@click.command(context_settings={'help_option_names':['-h','--help']})
+@click.argument('src', nargs=-1)
+@click.argument('dst', nargs=1)
+def copy(src, dst):
+	""" copy src to dst """
+	click.echo('{} {}'.format(src, dst))
+	for fn in src:
+		click.echo('move %s to %s'%(fn, dst))
+endsnippet
+
+snippet click_ctx "context to pass info" b
+@click.group()
+@click.option('--debug/--no-debug', default=False)
+@click.pass_context
+def cli(ctx, debug):
+	import ipdb; ipdb.set_trace()
+	click.echo('cli ctx {}'.format(ctx))
+	ctx.obj['DEBUG'] = debug
+
+@cli.command()
+@click.pass_context
+def sync(ctx):
+	click.echo('sync ctx {}'.format(ctx))
+	click.echo('Debug is %s' % (ctx.obj['DEBUG'] and 'on' or 'off'))
+
+if __name__ == '__main__':
+	cli(obj={})
+endsnippet
+
+
+# vim:ft=snippets:
