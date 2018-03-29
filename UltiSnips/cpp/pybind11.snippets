@@ -18,3 +18,88 @@ template <> struct type_caster<${1:CppType}> {
 	}
 };$0
 endsnippet
+
+snippet pybind11_numpy_vector "pybind11 wrap vector numpy" b
+py::array py_length(py::array_t<double, py::array::c_style | py::array::forcecast> array) {
+	// check input dimensions
+	if ( array.ndim()     != 2 )
+		throw std::runtime_error("Input should be 2-D NumPy array");
+	if ( array.shape()[1] != 2 )
+		throw std::runtime_error("Input should have size [N,2]");
+
+	// allocate std::vector (to pass to the C++ function)
+	std::vector<double> pos(array.size());
+
+	// copy py::array -> std::vector
+	std::memcpy(pos.data(),array.data(),array.size()*sizeof(double));
+
+	// call pure C++ function
+	std::vector<double> result = length(pos);
+
+	ssize_t              ndim    = 2;
+	std::vector<ssize_t> shape   = { array.shape()[0] , 3 };
+	std::vector<ssize_t> strides = { sizeof(double)*3 , sizeof(double) };
+
+	// return 2-D NumPy array
+	return py::array(py::buffer_info(
+		result.data(),                           /* data as contiguous array  */
+		sizeof(double),                          /* size of one scalar        */
+		py::format_descriptor<double>::format(), /* data type                 */
+		ndim,                                    /* number of dimensions      */
+		shape,                                   /* shape of the matrix       */
+		strides                                  /* strides for each axis     */
+	));
+}
+endsnippet
+
+snippet pybind11_module1 "simple pybind11" b
+#include <pybind11/pybind11.h>
+
+int add(int i, int j) {
+	return i + j;
+}
+
+PYBIND11_MODULE(example, m) {
+	m.doc() = "pybind11 example plugin"; // optional module docstring
+	m.def("add", &add, "A function which adds two numbers", py::arg("i"), py::arg("j")=0);
+}
+endsnippet
+
+
+snippet pybind11_objects "pybind11 objects" b
+PYBIND11_MODULE(example, m) {
+	m.attr("the_answer") = 42;
+	py::object world = py::cast("World");
+	m.attr("what") = world;
+}
+endsnippet
+
+snippet pybind11_class "pybind11 class example" b
+struct Pet {
+	Pet(const std::string &name) : name(name) { }
+	void setName(const std::string &name_) { name = name_; }
+	const std::string &getName() const { return name; }
+
+	std::string name;
+};
+
+// for dynamic attributes, class_<Pet>(m, "Pet", py::dynamic_attr())
+PYBIND11_MODULE(example, m) {
+	py::class_<Pet>(m, "Pet")
+		.def(py::init<const std::string &>())
+		.def("setName", &Pet::setName)
+		.def("getName", &Pet::getName)
+		.def_readwrite("name", &Pet::name)
+		// also consider
+		// .def_property("name", &Pet::getName, &Pet::setName)
+		// .def_readwrite_static()
+		// .def_readonly_static()
+		// .def_property_static()
+		// .def_property_readonly_static()
+		.def("__repr__",
+		[](const Pet &a) {
+			return "<example.Pet named '" + a.name + "'>";
+		}
+	);
+}
+endsnippet
