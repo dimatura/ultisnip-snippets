@@ -22,22 +22,17 @@ endsnippet
 snippet pybind11_numpy_vector "pybind11 wrap vector numpy" b
 py::array py_length(py::array_t<double, py::array::c_style | py::array::forcecast> array) {
 	// check input dimensions
-	if ( array.ndim()     != 2 )
+	if ( array.ndim() != 2 )
 		throw std::runtime_error("Input should be 2-D NumPy array");
 	if ( array.shape()[1] != 2 )
 		throw std::runtime_error("Input should have size [N,2]");
 
-	// allocate std::vector (to pass to the C++ function)
 	std::vector<double> pos(array.size());
-
-	// copy py::array -> std::vector
 	std::memcpy(pos.data(),array.data(),array.size()*sizeof(double));
-
-	// call pure C++ function
 	std::vector<double> result = length(pos);
 
-	ssize_t              ndim    = 2;
-	std::vector<ssize_t> shape   = { array.shape()[0] , 3 };
+	ssize_t ndim = 2;
+	std::vector<ssize_t> shape = { array.shape()[0] , 3 };
 	std::vector<ssize_t> strides = { sizeof(double)*3 , sizeof(double) };
 
 	// return 2-D NumPy array
@@ -102,4 +97,143 @@ PYBIND11_MODULE(example, m) {
 		}
 	);
 }
+endsnippet
+
+snippet pybind11_overload "pybind11 overload example" b
+double mul ( double a , double b ) {
+	std::cout << "Double" << std::endl;
+	return a*b;
+}
+
+int mul ( int a , int b ) {
+	std::cout << "Int" << std::endl;
+	return a*b;
+}
+
+namespace py = pybind11;
+
+PYBIND11_MODULE(example,m) {
+	m.doc() = "pybind11 example plugin";
+	m.def("mul", py::overload_cast<int   ,int   >(&mul) );
+	m.def("mul", py::overload_cast<double,double>(&mul) );
+}
+endsnippet
+
+snippet pybind11_typecasting "pybind11 typecasting matrix ex." b
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/numpy.h>
+
+template <class T>
+class Matrix {
+	private:
+		std::vector<T> _data;
+		std::vector<size_t> _shape;
+		std::vector<size_t> _strides;
+	public:
+		Matrix<T>(){};
+		Matrix<T>( std::vector<size_t> shape, const T *data=NULL )
+			if ( shape.size()<1 || shape.size()>3 )
+				throw std::runtime_error("Input should be 1-D, 2-D, or 3-D");
+			// store '_strides' and '_shape' always in 3-D,
+			// use unit-length for "extra" dimensions (> 'shape.size()')
+			while ( _shape	.size()<3 ) { _shape.push_back(1); }
+			while ( _strides.size()<3 ) { _strides.push_back(1); }
+			for (int i=0; i<shape.size(); i++)
+				_shape[i] = shape[i];
+
+			_strides[0] = _shape[2]*_shape[1];
+			_strides[1] = _shape[2];
+			_strides[2] = 1;
+			int size = _shape[0]*_shape[1]*_shape[2];
+			for ( int i=0 ; i<_data.size() ; i++ )
+				_data[i] = (T)0;
+			while ( _data.size()<size )
+				_data.push_back((T)0);
+			if ( data!=NULL )
+				for (int i=0 ; i<size ; i++)
+					_data[i] = data[i];
+		};
+
+		Matrix(const Matrix<T> &) = default;
+		Matrix<T>& operator= (const Matrix<T> &) = default;
+
+		T& operator[] ( size_t i ) { return _data[i]; };
+
+		T& operator() ( size_t h, size_t i=0, size_t j=0 )
+		{ return _data[h*_strides[0]+i*_strides[1]+j*_strides[2]]; };
+
+		auto begin() { return _data.begin(); }
+		auto end () { return _data.end	(); }
+
+		const T* data ( void ) const {return _data.data();};
+
+		std::vector<size_t> shape ( int ndim=0 ) const {
+			if ( ndim==0 )
+				ndim = this->ndim();
+			std::vector<size_t> ret(ndim);
+			for ( int i=0 ; i<ndim ; i++ )
+				ret[i] = _shape[i];
+			return ret;
+		};
+
+		std::vector<size_t> strides ( bool bytes=false ) const {
+			int ndim = this->ndim();
+			std::vector<size_t> ret(ndim);
+			for (int i=0 ; i<ndim ; i++)
+				ret[i] = _strides[i];
+			if (bytes)
+				for (int i=0 ; i<ndim ; i++)
+					ret[i] *= sizeof(T);
+			return ret;
+		};
+
+		size_t size ( void ) const { return _data.size(); };
+
+		size_t ndim ( void ) const {
+			size_t i;
+			for ( i=2 ; i>0 ; i-- )
+				if ( _shape[i]!=1 )
+					break;
+			return i+1;
+		};
+}; // class Matrix
+
+namespace py = pybind11;
+
+// type caster: Matrix <-> NumPy-array
+namespace pybind11 { namespace detail {
+template <typename T> struct type_caster<Matrix<T>> {
+	public:
+		PYBIND11_TYPE_CASTER(Matrix<T>, _("Matrix<T>"));
+		// Conversion part 1 (Python -> C++)
+		bool load(py::handle src, bool convert) {
+			if (!convert && !py::array_t<T>::check_(src))
+				return false;
+
+			auto buf = py::array_t<T, py::array::c_style | py::array::forcecast>::ensure(src);
+			if (!buf)
+				return false;
+
+			auto dims = buf.ndim();
+			if (dims < 1 || dims > 3)
+				return false;
+
+			std::vector<size_t> shape(buf.ndim());
+
+			for ( int i=0 ; i<buf.ndim() ; i++ )
+				shape[i] = buf.shape()[i];
+
+			value = Matrix<T>(shape,buf.data());
+			return true;
+		}
+
+		//Conversion part 2 (C++ -> Python)
+		static py::handle cast(const Matrix<T>& src,
+			py::return_value_policy policy, py::handle parent) {
+			py::array a(std::move(src.shape()), std::move(src.strides(true)), src.data());
+			return a.release();
+		}
+};
+}}
 endsnippet
