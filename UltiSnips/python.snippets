@@ -735,6 +735,13 @@ class ${1:ClassName}(${2:object}):
 		${6}
 endsnippet
 
+snippet super "super class init, 2.7" b
+super(sub_class, self).__init__(args)
+endsnippet
+
+snippet super3 "super class init, 3.x" b
+super().__init__(args)
+endsnippet
 
 snippet deff "deff"
 def ${1:fname}(${2:`!v indent('.') ? 'self' : ''`}):

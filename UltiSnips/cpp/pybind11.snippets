@@ -64,8 +64,12 @@ endsnippet
 snippet pybind11_objects "pybind11 objects" b
 PYBIND11_MODULE(example, m) {
 	m.attr("the_answer") = 42;
+	// can also cast other wrapped C++ classes
 	py::object world = py::cast("World");
 	m.attr("what") = world;
+	// object is a py::object
+	MyClass *cls = obj.cast<MyClass *>();
+
 }
 endsnippet
 
@@ -79,6 +83,8 @@ struct Pet {
 };
 
 // for dynamic attributes, class_<Pet>(m, "Pet", py::dynamic_attr())
+// to use unique_ptr/shared_ptr<Pet>, do py::class_<Pet, std::shared_ptr<Pet>>
+// may need to do PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>); once
 PYBIND11_MODULE(example, m) {
 	py::class_<Pet>(m, "Pet")
 		.def(py::init<const std::string &>())
@@ -97,6 +103,21 @@ PYBIND11_MODULE(example, m) {
 		}
 	);
 }
+endsnippet
+
+snippet pybind11_tuples "pybind11 tuples" b
+// * unpacking
+py::tuple args = py::make_tuple(1234, "hello", some_instance);
+f(*args);
+
+// ** unpacking
+py::dict kwargs = py::dict("number"_a=1234, "say"_a="hello", "to"_a=some_instance);
+f(**kwargs);
+
+// mixed keywords, * and ** unpacking
+py::tuple args = py::make_tuple(1234);
+py::dict kwargs = py::dict("to"_a=some_instance);
+f(*args, "say"_a="hello", **kwargs);
 endsnippet
 
 snippet pybind11_overload "pybind11 overload example" b
@@ -236,4 +257,83 @@ template <typename T> struct type_caster<Matrix<T>> {
 		}
 };
 }}
+endsnippet
+
+snippet pybind11_buffer_protocol "pybind11 buf protocol" b
+class Matrix {
+public:
+	Matrix(size_t rows, size_t cols) : m_rows(rows), m_cols(cols) {
+		m_data = new float[rows*cols];
+	}
+	float *data() { return m_data; }
+	size_t rows() const { return m_rows; }
+	size_t cols() const { return m_cols; }
+private:
+	size_t m_rows, m_cols;
+	float *m_data;
+};
+
+py::class_<Matrix>(m, "Matrix", py::buffer_protocol())
+	.def_buffer([](Matrix &m) -> py::buffer_info {
+		return py::buffer_info(
+			m.data(),                               /* Pointer to buffer */
+			sizeof(float),                          /* Size of one scalar */
+			py::format_descriptor<float>::format(), /* Python struct-style format descriptor */
+			2,                                      /* Number of dimensions */
+			{ m.rows(), m.cols() },                 /* Buffer dimensions */
+			{ sizeof(float) * m.rows(), sizeof(float) } /* Strides (in bytes) for each index */
+		);
+	});
+endsnippet
+
+snippet pybind11_structs "pybind11 structured types" b
+struct A {
+	int x;
+	double y;
+};
+
+PYBIND11_MODULE(test, m) {
+	PYBIND11_NUMPY_DTYPE(A, x, y);
+	/* now both A and B can be used as template arguments to py::array_t */
+}
+endsnippet
+
+snippet pybind11_array_access "pybind11 array access" b
+m.def("increment_3d", [](py::array_t<double> x) {
+		auto r = x.mutable_unchecked<3>(); // Will throw if ndim != 3 or flags.writeable is false
+		for (ssize_t i = 0; i < r.shape(0); i++)
+				for (ssize_t j = 0; j < r.shape(1); j++)
+						for (ssize_t k = 0; k < r.shape(2); k++)
+								r(i, j, k) += 1.0;
+}, py::arg().noconvert());
+// proxies have .ndim(), .data(i, j, ...), .itemsize(), .shape(n), .nbytes()
+endsnippet
+
+snippet pybind11_eval "pybind11 eval expressions" b
+#include <pybind11/eval.h>
+//...
+// Evaluate in scope of main module
+py::object scope = py::module::import("__main__").attr("__dict__");
+
+// Evaluate an isolated expression
+int result = py::eval("my_variable + 10", scope).cast<int>();
+
+// Evaluate a sequence of statements
+py::exec(
+	"print('Hello')\n"
+	"print('world!');",
+	scope);
+
+// Evaluate the statements in an separate Python file on disk
+py::eval_file("script.py", scope);
+endsnippet
+
+snippet pybind11_strings "pybind11 strings" b
+// return bytes without unicode conversion
+m.def("return_bytes",
+	[]() {
+		std::string s("\xba\xd0\xba\xd0");  // Not valid UTF-8
+		return py::bytes(s);  // Return the data without transcoding
+	}
+);
 endsnippet
