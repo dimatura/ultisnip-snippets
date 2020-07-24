@@ -4,4 +4,3 @@ ultisnip-snippets
 
 Author
 ======
-penis
